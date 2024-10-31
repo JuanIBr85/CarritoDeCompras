@@ -31,6 +31,11 @@ public class GestorProducto {
 
 
 	public void agregarProducto(Producto nProducto) {
+		
+		/*if (!nProducto.getCodProducto().matches("[A-Z]+")) {
+			System.out.println("El codigo solo debe contener caracters en mayuscula, por ejemplo ABC123");
+			return;
+		}*/
 
 		boolean existeProd = productos.stream().anyMatch(p -> p.getCodProducto().equals(nProducto.getCodProducto()));
 
