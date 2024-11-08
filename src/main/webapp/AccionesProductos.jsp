@@ -25,7 +25,7 @@
 				type="text" id="UnidadMedidaProducto" name="UnidadMedidaProducto"
 				required />
 		</p>
-		<p>
+		<p> 
 			<label for="PrecioProducto">Precio del Producto:</label> <input
 				type="number" id="PrecioProducto" name="PrecioProducto" step="0.01"
 				required />
