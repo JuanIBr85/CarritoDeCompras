@@ -20,7 +20,7 @@ public class Producto {
 		this.stockProducto = stockProducto;
 	}
 
-	public String getUnidadMedidaProductoString() {
+	public String getUnidadMedidaProductoString() {	
 		return unidadMedidaProductoString;
 	}
 
