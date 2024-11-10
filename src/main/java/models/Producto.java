@@ -1,89 +1,97 @@
-
 package models;
 
-
 public class Producto {
+    private int id;
+    private String codProducto;
+    private String nombre;
+    private String descripcion;
+    private int stockProducto;
+    private String unidadMedidaProducto;
+    private double precio;
+    private String imagen;  
+
+    public Producto(int id, String codProducto ,String nombre, String descripcion, double precio, int stockProducto, String unidadMedidaProducto, String imagen) { 
+        this.id = id;
+        this.codProducto = codProducto;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.unidadMedidaProducto=unidadMedidaProducto;
+        this.stockProducto=stockProducto;
+        this.imagen = imagen; 
+    }
+    
+    
+    public Producto() {
+		super();
+	}
+
+	public int getId() {
+        return id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+    
+    public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public void setPrecio(double precio) {
+		this.precio = precio;
+	}
 	
-	 private String codProducto;
-	 private String nombreProducto;
-	 private String unidadMedidaProductoString;
-	 private double precioProducto;
-	 private int stockProducto;
-	 
-	 
-	public Producto(String codProducto, String nombreProducto, String unidadMedidaProducto, double precioProducto, int stockProducto) {
-		super();
-		this.codProducto = codProducto;
-		this.nombreProducto = nombreProducto;
-		this.unidadMedidaProductoString = unidadMedidaProducto;
-		this.precioProducto = precioProducto;
-		this.stockProducto = stockProducto;
-	}
-
-	public String getUnidadMedidaProductoString() {	
-		return unidadMedidaProductoString;
-	}
-
-	public void setUnidadMedidaProductoString(String unidadMedidaProductoString) {
-		this.unidadMedidaProductoString = unidadMedidaProductoString;
-	}
-
-	public Producto() {
-		super();
+	public String getUnidadMedidaProducto() {
+		return unidadMedidaProducto;
 	}
 
 
+	public void setUnidadMedidaProducto(String unidadMedidaProducto) {
+		this.unidadMedidaProducto = unidadMedidaProducto;
+	}
+
+
+	public String getDescripcion() { 
+        return descripcion;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public String getImagen() { 
+        return imagen;  
+    }
+       
 	public String getCodProducto() {
 		return codProducto;
 	}
-
 
 	public void setCodProducto(String codProducto) {
 		this.codProducto = codProducto;
 	}
 
-
-	public String getNombreProducto() {
-		return nombreProducto;
-	}
-
-
-	public void setNombreProducto(String nombreProducto) {
-		this.nombreProducto = nombreProducto;
-	}
-
-
-	public double getPrecioProducto() {
-		return precioProducto;
-	}
-
-
-	public void setPrecioProducto(double precioProducto) {
-		this.precioProducto = precioProducto;
-	}
-
-		
-
 	public int getStockProducto() {
 		return stockProducto;
 	}
-
 
 	public void setStockProducto(int stockProducto) {
 		this.stockProducto = stockProducto;
 	}
 
+
 	@Override
 	public String toString() {
-		return "Producto [Codigo= " + codProducto + ", Nombre= " + nombreProducto
-				+ ", UM= " + unidadMedidaProductoString + ", Precio= " + precioProducto
-				+ ", Stock= " + stockProducto + "]";
+		return "Producto [id=" + id + ", codProducto=" + codProducto + ", nombre=" + nombre + ", descripcion="
+				+ descripcion + ", stockProducto=" + stockProducto + ", unidadMedidaProducto=" + unidadMedidaProducto
+				+ ", precio=" + precio + "]";
 	}
 
 
 
-
-
-	 
-	
 }

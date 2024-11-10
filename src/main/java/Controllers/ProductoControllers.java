@@ -40,7 +40,7 @@ public class ProductoControllers extends HttpServlet {
 		
 		String codProd = request.getParameter("CodProducto");
 		String nombreProd = request.getParameter("NombreProducto");
-		String uMProdString = request.getParameter("UnidadMedidaProducto");
+		String uMProd = request.getParameter("UnidadMedidaProducto");
 		String precioProd = request.getParameter("PrecioProducto");
 		double precioProducto = Double.parseDouble(precioProd);
 		String stockProd = request.getParameter("StockProducto");
@@ -49,9 +49,9 @@ public class ProductoControllers extends HttpServlet {
 		Producto nuevoProducto = new Producto();
 		
 		nuevoProducto.setCodProducto(codProd);
-		nuevoProducto.setNombreProducto(nombreProd);
-		nuevoProducto.setUnidadMedidaProductoString(uMProdString);
-		nuevoProducto.setPrecioProducto(precioProducto);
+		nuevoProducto.setNombre(nombreProd);
+		nuevoProducto.setUnidadMedidaProducto(uMProd);
+		nuevoProducto.setPrecio(precioProducto);
 		nuevoProducto.setStockProducto(stockProducto);
 		
 		this.ProductoGestor.agregarProducto(nuevoProducto);
