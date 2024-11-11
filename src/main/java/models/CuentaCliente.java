@@ -10,12 +10,10 @@ public class CuentaCliente {
 		super();
 	}
 
-
 	public CuentaCliente(Cliente cliente, double saldoCuenta) {
 		this.nroCtaCliente = cliente.getDniCliente();
 		this.saldoCtaCliente = saldoCuenta;
 	}
-    
     
 	public String getNroCuenta() {
 		return nroCtaCliente;
@@ -24,6 +22,7 @@ public class CuentaCliente {
 	public double getSaldoCuenta() {
 		return saldoCtaCliente;
 	}
+	
 	public void setSaldoCuenta(double saldoCuenta) {
 		this.saldoCtaCliente = saldoCuenta;
 	}
