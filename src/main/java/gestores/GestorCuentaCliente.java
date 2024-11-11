@@ -57,12 +57,10 @@ public class GestorCuentaCliente {
             System.out.println("No se pudo realizar la transaccion.");
         }
     }
-
-
+    
     public boolean registrarUsuario(Usuario usuario) {
         boolean existeUsuario = usuarios.stream()
-                .anyMatch(u -> u.getIdUsuario() == usuario.getIdUsuario() ||
-                               u.getClaveUsuario().equals(usuario.getClaveUsuario()));
+                .anyMatch(u -> u.getIdUsuario() == usuario.getIdUsuario());
 
         if (!existeUsuario) {
             usuarios.add(usuario);

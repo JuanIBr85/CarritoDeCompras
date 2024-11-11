@@ -20,7 +20,7 @@
         if (usuarios != null && !usuarios.isEmpty()) {
             for (Usuario usuario : usuarios) {
     %>
-                <p>ID: <%= usuario.getIdUsuario() %> | Nombre: <%= usuario.getNombreUsuario() %> | ID: <%= usuario.getIdUsuario() %></p>
+                <p>ID: <%= usuario.getIdUsuario() %> | Nombre: <%= usuario.getNombreUsuario() %> </p>
     <% 
             }
         } else {

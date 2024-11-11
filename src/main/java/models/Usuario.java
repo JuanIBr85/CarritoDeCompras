@@ -24,7 +24,6 @@ public class Usuario {
 		super();
 	}
 
-
 	public int getIdUsuario() {
 		return idUsuario;
 	}
@@ -55,7 +54,6 @@ public class Usuario {
 	public void setRolUsuario(String rolUsuario) {
 		this.rolUsuario = rolUsuario;
 	}
-
 
 	@Override
 	public String toString() {
