@@ -1,21 +1,27 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Registro de Cliente</title>
+    <title>Registro de Usuario</title>
 </head>
 <body>
-    <h2>Registro de Cliente</h2>
-    <form action="RegistroClienteController" method="POST">
-        <label for="dni">DNI:</label>
-        <input type="text" id="dni" name="dniCliente" required><br>
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombreUsuario" required><br>
-        <label for="apellido">Apellido:</label>
-        <input type="text" id="apellido" name="apellidoUsuario" required><br>
-        <label for="clave">Clave:</label>
-        <input type="password" id="clave" name="claveUsuario" required><br>
-        <input type="submit" value="Registrar">
+    <h2>Registrar Usuario</h2>
+	<form action="registrarUsuario" method="post">
+        <label for="idUsuario">ID Usuario:</label>
+        <input type="number" id="idUsuario" name="idUsuario" required><br>
+
+        <label for="claveUsuario">Clave:</label>
+        <input type="password" id="claveUsuario" name="claveUsuario" required><br>
+
+        <label for="nombreUsuario">Nombre:</label>
+        <input type="text" id="nombreUsuario" name="nombreUsuario" required><br>
+
+        <label for="apellidoUsuario">Apellido:</label>
+        <input type="text" id="apellidoUsuario" name="apellidoUsuario" required><br>
+
+        <label for="dniCliente">DNI:</label>
+        <input type="text" id="dniCliente" name="dniCliente" required><br>
+
+        <button type="submit">Registrar</button>
     </form>
 </body>
 </html>
