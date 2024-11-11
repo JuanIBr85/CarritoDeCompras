@@ -39,18 +39,18 @@ public class ProductoControllers extends HttpServlet {
 		
 		
 	}
-*/
-    
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	 List<Producto> productos = ProductoGestor.obtenerListaProductos();
+	*/
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    List<Producto> productos = ProductoGestor.obtenerListaProductos();
 
-    	    HttpSession session = request.getSession();
+	    HttpSession session = request.getSession();
 
-    	    session.setAttribute("productos", productos);
+	    session.setAttribute("productos", productos);
 
-    	    request.getRequestDispatcher("productos.jsp").forward(request, response);
-    }
+	    request.getRequestDispatcher("productos.jsp").forward(request, response);
+	}
+
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
@@ -71,8 +71,15 @@ public class ProductoControllers extends HttpServlet {
 		nuevoProducto.setPrecio(precioProducto);
 		nuevoProducto.setStockProducto(stockProducto);
 		
-		this.ProductoGestor.agregarProducto(nuevoProducto);
-		
+        this.ProductoGestor.agregarProducto(nuevoProducto);
+
+        List<Producto> productos = ProductoGestor.obtenerListaProductos();
+
+        HttpSession session = request.getSession();
+        session.setAttribute("productos", productos);
+
+        response.sendRedirect(request.getContextPath() + "/productos.jsp");
+
 	}
 
 }
