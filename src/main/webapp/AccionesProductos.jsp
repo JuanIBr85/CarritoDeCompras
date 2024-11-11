@@ -39,6 +39,6 @@
 		</p>
 	</form>
 	</p>
-	<a href="ProductoControllers?action=listar">Listado de Productos</a>
+	<a href="Carrito">Listado de Productos</a>
 </body>
 </html>

@@ -2,16 +2,17 @@ package Controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import gestores.GestorProducto;
 import models.Producto;
-
 
 
 @WebServlet("/ProductoControllers")
@@ -24,16 +25,32 @@ public class ProductoControllers extends HttpServlet {
     	this.ProductoGestor = GestorProducto.getInstance();
     }
 
-
+/*
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		
 		response.addHeader("Content-type", "text/plain");
 		PrintWriter escritor = response.getWriter();
 		
 		for (Producto producto : ProductoGestor.obtenerListaProductos()) {
 			escritor.append(producto.toString() + "\n");
 		}
+		
+		
+		
 	}
+*/
+    
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	 List<Producto> productos = ProductoGestor.obtenerListaProductos();
+
+    	    HttpSession session = request.getSession();
+
+    	    session.setAttribute("productos", productos);
+
+    	    request.getRequestDispatcher("productos.jsp").forward(request, response);
+    }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
