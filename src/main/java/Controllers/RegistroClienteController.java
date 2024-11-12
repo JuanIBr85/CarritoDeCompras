@@ -36,9 +36,11 @@ public class RegistroClienteController extends HttpServlet {
         String rolUsuario = "Cliente"; 
         String dniCliente = request.getParameter("dniCliente");
 
+        double saldoInicial = Double.parseDouble(request.getParameter("saldoInicial"));
+
         Cliente cliente = new Cliente(idUsuario, claveUsuario, nombreUsuario, apellidoUsuario, rolUsuario, dniCliente);
 
-        CuentaCliente cuentaCliente = new CuentaCliente(cliente, 0);  
+        CuentaCliente cuentaCliente = new CuentaCliente(cliente, saldoInicial);  
 
         boolean registrado = gestorCuentaUsuario.registrarUsuario(cliente);
 
@@ -69,4 +71,3 @@ public class RegistroClienteController extends HttpServlet {
         request.getRequestDispatcher("registroConfirmacion.jsp").forward(request, response);
     }
 }
-

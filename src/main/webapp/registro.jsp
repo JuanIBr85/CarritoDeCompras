@@ -21,6 +21,9 @@
         <label for="dniCliente">DNI:</label>
         <input type="text" id="dniCliente" name="dniCliente" required><br>
 
+        <label for="saldoInicial">Saldo Inicial:</label>
+        <input type="number" id="saldoInicial" name="saldoInicial" required><br>
+
         <button type="submit">Registrar</button>
     </form>
 </body>
