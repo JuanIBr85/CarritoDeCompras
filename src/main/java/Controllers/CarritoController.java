@@ -21,7 +21,6 @@ public class CarritoController extends HttpServlet {
 
     }
 
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("carrito", carrito);
         request.getRequestDispatcher("productos.jsp").forward(request, response);

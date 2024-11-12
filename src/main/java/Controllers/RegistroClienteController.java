@@ -13,16 +13,19 @@ import gestores.GestorCuentaCliente;
 import gestores.GestorCuentaUsuario;
 import models.Cliente;
 import models.Usuario;
+import models.CuentaCliente;
 
 @WebServlet("/registrarUsuario")
 public class RegistroClienteController extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private GestorCuentaUsuario gestorCuentaUsuario;
+    private GestorCuentaCliente gestorCuentaCliente;
 
     @Override
     public void init() throws ServletException {
         super.init();
         gestorCuentaUsuario = new GestorCuentaUsuario(); 
+        gestorCuentaCliente = new GestorCuentaCliente(); 
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -36,7 +39,11 @@ public class RegistroClienteController extends HttpServlet {
         Cliente cliente = new Cliente(idUsuario, claveUsuario, nombreUsuario, apellidoUsuario, rolUsuario);
         cliente.setDniCliente(dniCliente);
 
+        CuentaCliente cuentacliente = new CuentaCliente(cliente, 0);
+        
         boolean registrado = gestorCuentaUsuario.registrarUsuario(cliente);
+
+        gestorCuentaCliente.agregaCuenta(cuentacliente);
 
         if (registrado) {
             request.setAttribute("mensaje", "Usuario registrado exitosamente.");
@@ -45,8 +52,23 @@ public class RegistroClienteController extends HttpServlet {
         }
 
         List<Usuario> usuarios = gestorCuentaUsuario.obtenerUsuarios();
-        
+        List<CuentaCliente> cuentasClientes = gestorCuentaCliente.obtenerCuentas();  
+
         request.setAttribute("usuarios", usuarios);
+
         
-        request.getRequestDispatcher("registroConfirmacion.jsp").forward(request, response);    }
+        if (cuentasClientes != null && !cuentasClientes.isEmpty()) {
+            System.out.println("Cuentas de Clientes:");
+            for (CuentaCliente cuenta : cuentasClientes) {
+                System.out.println("Número de Cuenta: " + cuenta.getNroCuenta() + ", Saldo: " + cuenta.getSaldoCuenta());
+            }
+        } else {
+            System.out.println("No hay cuentas de clientes.");
+        }
+
+        request.setAttribute("cuentasClientes", cuentasClientes); 
+
+        
+        request.getRequestDispatcher("registroConfirmacion.jsp").forward(request, response);
+    }
 }
