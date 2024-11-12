@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import models.CuentaCliente;
 import models.Usuario;
-import models.Cliente;
 
-public class GestorCuentaCliente {
+public class GestorCuentaUsuario {
     private List<CuentaCliente> cuentas;
-    public GestorCuentaCliente() {
+    private List<Usuario> usuarios;
+
+    public GestorCuentaUsuario() {
         this.cuentas = new ArrayList<>();
-        new ArrayList<>();
+        this.usuarios = new ArrayList<>();
     }
 
     public void agregaCuenta(CuentaCliente nCuenta) {
@@ -55,5 +56,29 @@ public class GestorCuentaCliente {
             System.out.println("No se pudo realizar la transaccion.");
         }
     }
-  
+    
+    public boolean registrarUsuario(Usuario usuario) {
+        boolean existeUsuario = usuarios.stream()
+                .anyMatch(u -> u.getIdUsuario() == usuario.getIdUsuario());
+
+        if (!existeUsuario) {
+            usuarios.add(usuario);
+            return true;
+        } else {
+            System.out.println("El usuario ya existe.");
+            return false; 
+        }
+    }
+
+    public List<Usuario> obtenerUsuarios() {
+        return new ArrayList<>(usuarios);
+    }
+
+    public Usuario buscarUsuarioPorId(int idUsuario) {
+        return usuarios.stream()
+                .filter(u -> u.getIdUsuario() == idUsuario)
+                .findFirst()
+                .orElse(null);
+    }
+    
 }

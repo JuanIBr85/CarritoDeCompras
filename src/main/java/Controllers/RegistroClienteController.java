@@ -10,18 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import gestores.GestorCuentaCliente;
+import gestores.GestorCuentaUsuario;
 import models.Cliente;
 import models.Usuario;
 
 @WebServlet("/registrarUsuario")
 public class RegistroClienteController extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private GestorCuentaCliente gestorCuentaCliente;
+    private GestorCuentaUsuario gestorCuentaUsuario;
 
     @Override
     public void init() throws ServletException {
         super.init();
-        gestorCuentaCliente = new GestorCuentaCliente(); 
+        gestorCuentaUsuario = new GestorCuentaUsuario(); 
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -35,7 +36,7 @@ public class RegistroClienteController extends HttpServlet {
         Cliente cliente = new Cliente(idUsuario, claveUsuario, nombreUsuario, apellidoUsuario, rolUsuario);
         cliente.setDniCliente(dniCliente);
 
-        boolean registrado = gestorCuentaCliente.registrarUsuario(cliente);
+        boolean registrado = gestorCuentaUsuario.registrarUsuario(cliente);
 
         if (registrado) {
             request.setAttribute("mensaje", "Usuario registrado exitosamente.");
@@ -43,7 +44,7 @@ public class RegistroClienteController extends HttpServlet {
             request.setAttribute("mensaje", "Error: el usuario ya existe.");
         }
 
-        List<Usuario> usuarios = gestorCuentaCliente.obtenerUsuarios();
+        List<Usuario> usuarios = gestorCuentaUsuario.obtenerUsuarios();
         
         request.setAttribute("usuarios", usuarios);
         
