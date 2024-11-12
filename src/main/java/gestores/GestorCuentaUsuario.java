@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import models.CuentaCliente;
 import models.Usuario;
+import models.Cliente;
 
 public class GestorCuentaUsuario {
     private List<CuentaCliente> cuentas;
@@ -60,15 +61,28 @@ public class GestorCuentaUsuario {
     public boolean registrarUsuario(Usuario usuario) {
         boolean existeUsuario = usuarios.stream()
                 .anyMatch(u -> u.getIdUsuario() == usuario.getIdUsuario());
-
-        if (!existeUsuario) {
-            usuarios.add(usuario);
-            return true;
-        } else {
-            System.out.println("El usuario ya existe.");
-            return false; 
+        
+        boolean existeDni = false;
+        if (usuario instanceof Cliente) {
+            String dniCliente = ((Cliente) usuario).getDniCliente();
+            existeDni = usuarios.stream()
+                    .filter(u -> u instanceof Cliente)
+                    .anyMatch(u -> ((Cliente) u).getDniCliente().equals(dniCliente));
         }
+
+        if (existeUsuario) {
+            System.out.println("El usuario ya existe.");
+            return false;
+        }
+        if (existeDni) {
+            System.out.println("El DNI ya está registrado.");
+            return false;
+        }
+
+        usuarios.add(usuario);
+        return true;
     }
+
 
     public List<Usuario> obtenerUsuarios() {
         return new ArrayList<>(usuarios);

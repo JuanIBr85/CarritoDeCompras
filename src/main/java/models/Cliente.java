@@ -9,12 +9,11 @@ public class Cliente extends Usuario {
 		
 	}
 
-	public Cliente(int idUsuario, String claveUsuario, String nombreUsuario, String apellidoUsuario, String rolUsuario) {
-			
-		super(idUsuario, claveUsuario, nombreUsuario, apellidoUsuario, rolUsuario);
-				this.dniCliente = dniCliente;
-		
+	public Cliente(int idUsuario, String claveUsuario, String nombreUsuario, String apellidoUsuario, String rolUsuario, String dniCliente) {
+	    super(idUsuario, claveUsuario, nombreUsuario, apellidoUsuario, rolUsuario);  
+	    this.dniCliente = dniCliente; 
 	}
+
 
 	public String getDniCliente() {
 		return dniCliente;

@@ -36,14 +36,13 @@ public class RegistroClienteController extends HttpServlet {
         String rolUsuario = "Cliente"; 
         String dniCliente = request.getParameter("dniCliente");
 
-        Cliente cliente = new Cliente(idUsuario, claveUsuario, nombreUsuario, apellidoUsuario, rolUsuario);
-        cliente.setDniCliente(dniCliente);
+        Cliente cliente = new Cliente(idUsuario, claveUsuario, nombreUsuario, apellidoUsuario, rolUsuario, dniCliente);
 
-        CuentaCliente cuentacliente = new CuentaCliente(cliente, 0);
-        
+        CuentaCliente cuentaCliente = new CuentaCliente(cliente, 0);  
+
         boolean registrado = gestorCuentaUsuario.registrarUsuario(cliente);
 
-        gestorCuentaCliente.agregaCuenta(cuentacliente);
+        gestorCuentaCliente.agregaCuenta(cuentaCliente);
 
         if (registrado) {
             request.setAttribute("mensaje", "Usuario registrado exitosamente.");
@@ -55,7 +54,6 @@ public class RegistroClienteController extends HttpServlet {
         List<CuentaCliente> cuentasClientes = gestorCuentaCliente.obtenerCuentas();  
 
         request.setAttribute("usuarios", usuarios);
-
         
         if (cuentasClientes != null && !cuentasClientes.isEmpty()) {
             System.out.println("Cuentas de Clientes:");
@@ -67,8 +65,8 @@ public class RegistroClienteController extends HttpServlet {
         }
 
         request.setAttribute("cuentasClientes", cuentasClientes); 
-
         
         request.getRequestDispatcher("registroConfirmacion.jsp").forward(request, response);
     }
 }
+
