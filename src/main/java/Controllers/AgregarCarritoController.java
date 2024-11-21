@@ -19,7 +19,7 @@ public class AgregarCarritoController extends HttpServlet {
 
     @SuppressWarnings("unchecked")
 	@Override
-    protected void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String codProd = request.getParameter("CodProducto");
         String nombreProd = request.getParameter("NombreProducto");
         String precioProd = request.getParameter("PrecioProducto");
