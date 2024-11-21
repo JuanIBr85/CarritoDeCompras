@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import gestores.GestorCuentaCliente;
-import gestores.GestorCuentaUsuario;
+import gestores.GestorUsuarios;
 import models.Cliente;
 import models.Usuario;
 import models.CuentaCliente;
@@ -18,7 +18,7 @@ import models.CuentaCliente;
 @WebServlet("/registrarUsuario")
 public class RegistroClienteController extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private GestorCuentaUsuario gestorCuentaUsuario;
+    private GestorUsuarios gestorCuentaUsuario;
     private GestorCuentaCliente gestorCuentaCliente;
 
     
@@ -26,7 +26,7 @@ public class RegistroClienteController extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
-        gestorCuentaUsuario = GestorCuentaUsuario.getInstance();
+        gestorCuentaUsuario = GestorUsuarios.getInstance();
         gestorCuentaCliente = GestorCuentaCliente.getInstance();
     }
 

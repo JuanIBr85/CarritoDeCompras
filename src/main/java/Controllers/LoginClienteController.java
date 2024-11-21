@@ -9,19 +9,19 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-import gestores.GestorCuentaUsuario;
+import gestores.GestorUsuarios;
 import models.Usuario;
 
 @WebServlet("/loginUsuario")
 public class LoginClienteController extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private GestorCuentaUsuario gestorCuentaUsuario;
+    private GestorUsuarios gestorCuentaUsuario;
 
     //https://keepcoding.io/blog/que-es-el-patron-singleton-en-java/#:~:text=%C2%BFQu%C3%A9%20es%20el%20patr%C3%B3n%20Singleton%20en%20Java%3F%20El,te%20devolver%C3%A1%20el%20mismo%20objeto%20que%20ya%20existe.
     @Override
     public void init() throws ServletException {
         super.init();
-        gestorCuentaUsuario = GestorCuentaUsuario.getInstance();
+        gestorCuentaUsuario = GestorUsuarios.getInstance();
     }
 
     @Override
