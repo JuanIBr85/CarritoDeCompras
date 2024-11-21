@@ -7,7 +7,12 @@ import models.Usuario;
 import models.Cliente;
 
 public class GestorCuentaUsuario {
-    private static GestorCuentaUsuario instancia;
+	// Reglas del singleton
+		// 1- Constructor private 
+		// 2- Que tenga un atributo estatico que haga referencia a la clase 
+		// 3- metodo para obtener la instancia. GetInstance() 
+	
+    private static GestorCuentaUsuario singleton;
     private List<CuentaCliente> cuentas;
     private List<Usuario> usuarios;
 
@@ -18,10 +23,10 @@ public class GestorCuentaUsuario {
    
     //https://keepcoding.io/blog/que-es-el-patron-singleton-en-java/#:~:text=%C2%BFQu%C3%A9%20es%20el%20patr%C3%B3n%20Singleton%20en%20Java%3F%20El,te%20devolver%C3%A1%20el%20mismo%20objeto%20que%20ya%20existe.
     public static synchronized GestorCuentaUsuario getInstance() {
-        if (instancia == null) {
-            instancia = new GestorCuentaUsuario();
+        if (singleton == null) {
+        	singleton = new GestorCuentaUsuario();
         }
-        return instancia;
+        return singleton;
     }
 
     public boolean registrarUsuario(Usuario usuario) { //logica del registro de usuario

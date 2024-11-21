@@ -27,7 +27,7 @@ public class RegistroClienteController extends HttpServlet {
     public void init() throws ServletException {
         super.init();
         gestorCuentaUsuario = GestorCuentaUsuario.getInstance();
-        gestorCuentaCliente = new GestorCuentaCliente(); 
+        gestorCuentaCliente = GestorCuentaCliente.getInstance();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

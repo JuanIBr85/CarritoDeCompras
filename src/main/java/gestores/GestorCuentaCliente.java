@@ -3,14 +3,26 @@ package gestores;
 import java.util.ArrayList;
 import java.util.List;
 import models.CuentaCliente;
-import models.Usuario;
-import models.Cliente;
 
 public class GestorCuentaCliente {
+	// Reglas del singleton
+		// 1- Constructor private 
+		// 2- Que tenga un atributo estatico que haga referencia a la clase 
+		// 3- metodo para obtener la instancia. GetInstance() 
+	
+    private static GestorCuentaCliente singleton;
+
     private List<CuentaCliente> cuentas;
-    public GestorCuentaCliente() {
+
+    private GestorCuentaCliente() {
         this.cuentas = new ArrayList<>();
-        new ArrayList<>();
+    }
+
+    public static synchronized GestorCuentaCliente getInstance() {
+        if (singleton == null) {
+        	singleton = new GestorCuentaCliente();
+        }
+        return singleton;
     }
 
     public void agregaCuenta(CuentaCliente nCuenta) {
@@ -40,7 +52,7 @@ public class GestorCuentaCliente {
         if (cuenta != null && cuenta.getSaldoCuenta() >= monto) {
             cuenta.setSaldoCuenta(cuenta.getSaldoCuenta() - monto);
         } else {
-            System.out.println("Dinero insuficiente para realizar la operacion.");
+            System.out.println("Dinero insuficiente para realizar la operación.");
         }
     }
 
@@ -52,8 +64,7 @@ public class GestorCuentaCliente {
             restaDineroEnCuenta(nroCuenta, monto);
             sumaDineroEnCuenta(nroCuentaDestino, monto);
         } else {
-            System.out.println("No se pudo realizar la transaccion.");
+            System.out.println("No se pudo realizar la transacción.");
         }
     }
-  
 }
