@@ -18,7 +18,7 @@
         <label for="apellidoUsuario">Apellido:</label>
         <input type="text" id="apellidoUsuario" name="apellidoUsuario" required><br>
 
-        <label for="dniCliente">DNI:</label>
+        <label for="dniCliente">DNI Cliente:</label>
         <input type="text" id="dniCliente" name="dniCliente" required><br>
 
         <label for="saldoInicial">Saldo Inicial:</label>
