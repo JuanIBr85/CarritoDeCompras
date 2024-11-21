@@ -4,23 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 import models.CuentaCliente;
 
-public class GestorCuentaCliente {
+public class GestorBilleteraCliente {
 	// Reglas del singleton
 		// 1- Constructor private 
 		// 2- Que tenga un atributo estatico que haga referencia a la clase 
 		// 3- metodo para obtener la instancia. GetInstance() 
 	
-    private static GestorCuentaCliente singleton;
+    private static GestorBilleteraCliente singleton;
 
     private List<CuentaCliente> cuentas;
 
-    private GestorCuentaCliente() {
+    private GestorBilleteraCliente() {
         this.cuentas = new ArrayList<>();
     }
 
-    public static synchronized GestorCuentaCliente getInstance() {
+    public static synchronized GestorBilleteraCliente getInstance() {
         if (singleton == null) {
-        	singleton = new GestorCuentaCliente();
+        	singleton = new GestorBilleteraCliente();
         }
         return singleton;
     }

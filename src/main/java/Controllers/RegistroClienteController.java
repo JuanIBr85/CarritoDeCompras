@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import gestores.GestorCuentaCliente;
+import gestores.GestorBilleteraCliente;
 import gestores.GestorUsuarios;
 import models.Cliente;
 import models.Usuario;
@@ -19,7 +19,7 @@ import models.CuentaCliente;
 public class RegistroClienteController extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private GestorUsuarios gestorCuentaUsuario;
-    private GestorCuentaCliente gestorCuentaCliente;
+    private GestorBilleteraCliente gestorCuentaCliente;
 
     
     //https://keepcoding.io/blog/que-es-el-patron-singleton-en-java/#:~:text=%C2%BFQu%C3%A9%20es%20el%20patr%C3%B3n%20Singleton%20en%20Java%3F%20El,te%20devolver%C3%A1%20el%20mismo%20objeto%20que%20ya%20existe.
@@ -27,7 +27,7 @@ public class RegistroClienteController extends HttpServlet {
     public void init() throws ServletException {
         super.init();
         gestorCuentaUsuario = GestorUsuarios.getInstance();
-        gestorCuentaCliente = GestorCuentaCliente.getInstance();
+        gestorCuentaCliente = GestorBilleteraCliente.getInstance();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

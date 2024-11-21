@@ -65,6 +65,7 @@ public class GestorUsuarios {
                 .orElse(null);
     }
     
+    
     public Usuario autenticarUsuario(int idUsuario, String claveUsuario) { //logica del login
         return usuarios.stream()
                 .filter(u -> u.getIdUsuario() == idUsuario && u.getClaveUsuario().equals(claveUsuario))
