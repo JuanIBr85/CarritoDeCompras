@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Login de Cliente</title>
+    <title>Login</title>
 </head>
 <body>
-    <h2>Login de Cliente</h2>
-    <form action="LoginClienteController" method="POST">
-        <label for="dni">DNI:</label>
-        <input type="text" id="dni" name="dniCliente" required><br>
-        <label for="clave">Clave:</label>
-        <input type="password" id="clave" name="claveUsuario" required><br>
-        <input type="submit" value="Ingresar">
+    <h2>Login</h2>
+    <form action="loginUsuario" method="post">
+        <label for="idUsuario">ID Usuario:</label>
+        <input type="number" id="idUsuario" name="idUsuario" required><br>
+
+        <label for="claveUsuario">Clave:</label>
+        <input type="password" id="claveUsuario" name="claveUsuario" required><br>
+
+        <button type="submit">Login</button>
     </form>
 </body>
 </html>

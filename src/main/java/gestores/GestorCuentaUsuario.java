@@ -7,58 +7,24 @@ import models.Usuario;
 import models.Cliente;
 
 public class GestorCuentaUsuario {
+    private static GestorCuentaUsuario instancia;
     private List<CuentaCliente> cuentas;
     private List<Usuario> usuarios;
 
-    public GestorCuentaUsuario() {
+    private GestorCuentaUsuario() {
         this.cuentas = new ArrayList<>();
         this.usuarios = new ArrayList<>();
     }
-
-    public void agregaCuenta(CuentaCliente nCuenta) {
-        boolean existeCta = cuentas.stream().anyMatch(p -> p.getNroCuenta().equals(nCuenta.getNroCuenta()));
-        if (existeCta) return;
-        cuentas.add(nCuenta);
-    }
-
-    public List<CuentaCliente> obtenerCuentas() {
-        return new ArrayList<>(cuentas);
-    }
-
-    public CuentaCliente buscarCuenta(String nroCuenta) {
-        return cuentas.stream()
-                .filter(ct -> ct.getNroCuenta().equals(nroCuenta))
-                .findFirst()
-                .orElse(null);
-    }
-
-    public void sumaDineroEnCuenta(String nroCuenta, double monto) {
-        CuentaCliente cuenta = buscarCuenta(nroCuenta);
-        if (cuenta != null) cuenta.setSaldoCuenta(cuenta.getSaldoCuenta() + monto);
-    }
-
-    public void restaDineroEnCuenta(String nroCuenta, double monto) {
-        CuentaCliente cuenta = buscarCuenta(nroCuenta);
-        if (cuenta != null && cuenta.getSaldoCuenta() >= monto) {
-            cuenta.setSaldoCuenta(cuenta.getSaldoCuenta() - monto);
-        } else {
-            System.out.println("Dinero insuficiente para realizar la operacion.");
+   
+    //https://keepcoding.io/blog/que-es-el-patron-singleton-en-java/#:~:text=%C2%BFQu%C3%A9%20es%20el%20patr%C3%B3n%20Singleton%20en%20Java%3F%20El,te%20devolver%C3%A1%20el%20mismo%20objeto%20que%20ya%20existe.
+    public static synchronized GestorCuentaUsuario getInstance() {
+        if (instancia == null) {
+            instancia = new GestorCuentaUsuario();
         }
+        return instancia;
     }
 
-    public void transferirDinero(String nroCuentaDestino, String nroCuenta, double monto) {
-        CuentaCliente cuentaDestino = buscarCuenta(nroCuentaDestino);
-        CuentaCliente cuentaOrigen = buscarCuenta(nroCuenta);
-
-        if (cuentaDestino != null && cuentaOrigen != null && cuentaOrigen.getSaldoCuenta() >= monto) {
-            restaDineroEnCuenta(nroCuenta, monto);
-            sumaDineroEnCuenta(nroCuentaDestino, monto);
-        } else {
-            System.out.println("No se pudo realizar la transaccion.");
-        }
-    }
-    
-    public boolean registrarUsuario(Usuario usuario) {
+    public boolean registrarUsuario(Usuario usuario) { //logica del registro de usuario
         boolean existeUsuario = usuarios.stream()
                 .anyMatch(u -> u.getIdUsuario() == usuario.getIdUsuario());
         
@@ -83,7 +49,6 @@ public class GestorCuentaUsuario {
         return true;
     }
 
-
     public List<Usuario> obtenerUsuarios() {
         return new ArrayList<>(usuarios);
     }
@@ -95,4 +60,10 @@ public class GestorCuentaUsuario {
                 .orElse(null);
     }
     
+    public Usuario autenticarUsuario(int idUsuario, String claveUsuario) { //logica del login
+        return usuarios.stream()
+                .filter(u -> u.getIdUsuario() == idUsuario && u.getClaveUsuario().equals(claveUsuario))
+                .findFirst()
+                .orElse(null);
+    }
 }

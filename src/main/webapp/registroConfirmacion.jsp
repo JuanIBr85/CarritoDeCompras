@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.List" %>
 <%@ page import="models.Usuario" %>  
-<%@ page import="models.Cliente" %>  <!-- Importar Cliente -->
+<%@ page import="models.Cliente" %>  
 <%@ page import="models.CuentaCliente" %>
 <!DOCTYPE html>
 <html>

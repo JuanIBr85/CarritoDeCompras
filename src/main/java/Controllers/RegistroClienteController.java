@@ -21,10 +21,12 @@ public class RegistroClienteController extends HttpServlet {
     private GestorCuentaUsuario gestorCuentaUsuario;
     private GestorCuentaCliente gestorCuentaCliente;
 
+    
+    //https://keepcoding.io/blog/que-es-el-patron-singleton-en-java/#:~:text=%C2%BFQu%C3%A9%20es%20el%20patr%C3%B3n%20Singleton%20en%20Java%3F%20El,te%20devolver%C3%A1%20el%20mismo%20objeto%20que%20ya%20existe.
     @Override
     public void init() throws ServletException {
         super.init();
-        gestorCuentaUsuario = new GestorCuentaUsuario(); 
+        gestorCuentaUsuario = GestorCuentaUsuario.getInstance();
         gestorCuentaCliente = new GestorCuentaCliente(); 
     }
 
