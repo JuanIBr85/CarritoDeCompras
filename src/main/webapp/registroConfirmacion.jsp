@@ -2,7 +2,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="models.Usuario" %>  
 <%@ page import="models.Cliente" %>  
-<%@ page import="models.CuentaCliente" %>
+<%@ page import="models.BilleteraCliente" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,8 +13,8 @@
 
 <h2>Clientes Registrados</h2>
 <%
-    List<Usuario> usuarios = (List<Usuario>) request.getAttribute("usuarios");
-    List<CuentaCliente> cuentasClientes = (List<CuentaCliente>) request.getAttribute("cuentasClientes");
+List<Usuario> usuarios = (List<Usuario>) request.getAttribute("usuarios");
+    List<BilleteraCliente> cuentasClientes = (List<BilleteraCliente>) request.getAttribute("cuentasClientes");
     
     if (usuarios != null) {
         for (Usuario usuario : usuarios) {
@@ -22,34 +22,34 @@
                 Cliente cliente = (Cliente) usuario;
                 boolean cuentaEncontrada = false;
 
-                for (CuentaCliente cuenta : cuentasClientes) {
+                for (BilleteraCliente cuenta : cuentasClientes) {
                     if (cuenta.getNroCuenta().equals(cliente.getDniCliente())) { // comparar DNI con nro cuenta, que en nuestro proyecto es lo mismo
                         cuentaEncontrada = true;
 %>
-                        <p>ID: <%= cliente.getIdUsuario() %>, Nombre: <%= cliente.getNombreUsuario() %> <%= cliente.getApellidoUsuario() %>, DNI: <%= cliente.getDniCliente() %>, Saldo: <%= cuenta.getSaldoCuenta() %></p>
+                        <p>ID: <%=cliente.getIdUsuario()%>, Nombre: <%=cliente.getNombreUsuario()%> <%=cliente.getApellidoUsuario()%>, DNI: <%=cliente.getDniCliente()%>, Saldo: <%=cuenta.getSaldoCuenta()%></p>
 <%
-                        break;
+break;
                     }
                 }
 
                 if (!cuentaEncontrada) {
 %>
-                    <p>ID: <%= cliente.getIdUsuario() %>, Nombre: <%= cliente.getNombreUsuario() %> <%= cliente.getApellidoUsuario() %>, DNI: <%= cliente.getDniCliente() %>, No tiene cuenta registrada.</p>
+                    <p>ID: <%=cliente.getIdUsuario()%>, Nombre: <%=cliente.getNombreUsuario()%> <%=cliente.getApellidoUsuario()%>, DNI: <%=cliente.getDniCliente()%>, No tiene cuenta registrada.</p>
 <%
-                }
+}
             }
         }
     } else {
 %>
         <p>No hay clientes registrados.</p>
 <%
-    }
+}
 %>
 
 <h2>Cuentas de Clientes</h2>
 <%
-    if (cuentasClientes != null) {
-        for (CuentaCliente cuenta : cuentasClientes) {
+if (cuentasClientes != null) {
+        for (BilleteraCliente cuenta : cuentasClientes) {
 %>
             <p>Número de Cuenta: <%= cuenta.getNroCuenta() %>, Saldo: <%= cuenta.getSaldoCuenta() %></p>
 <%

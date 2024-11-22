@@ -2,7 +2,7 @@ package gestores;
 
 import java.util.ArrayList;
 import java.util.List;
-import models.CuentaCliente;
+import models.BilleteraCliente;
 
 public class GestorBilleteraCliente {
 	// Reglas del singleton
@@ -12,7 +12,7 @@ public class GestorBilleteraCliente {
 	
     private static GestorBilleteraCliente singleton;
 
-    private List<CuentaCliente> cuentas;
+    private List<BilleteraCliente> cuentas;
 
     private GestorBilleteraCliente() {
         this.cuentas = new ArrayList<>();
@@ -25,17 +25,17 @@ public class GestorBilleteraCliente {
         return singleton;
     }
 
-    public void agregaCuenta(CuentaCliente nCuenta) {
+    public void agregaCuenta(BilleteraCliente nCuenta) {
         boolean existeCta = cuentas.stream().anyMatch(p -> p.getNroCuenta().equals(nCuenta.getNroCuenta()));
         if (existeCta) return;
         cuentas.add(nCuenta);
     }
 
-    public List<CuentaCliente> obtenerCuentas() {
+    public List<BilleteraCliente> obtenerCuentas() {
         return new ArrayList<>(cuentas);
     }
 
-    public CuentaCliente buscarCuenta(String nroCuenta) {
+    public BilleteraCliente buscarCuenta(String nroCuenta) {
         return cuentas.stream()
                 .filter(ct -> ct.getNroCuenta().equals(nroCuenta))
                 .findFirst()
@@ -43,12 +43,12 @@ public class GestorBilleteraCliente {
     }
 
     public void sumaDineroEnCuenta(String nroCuenta, double monto) {
-        CuentaCliente cuenta = buscarCuenta(nroCuenta);
+        BilleteraCliente cuenta = buscarCuenta(nroCuenta);
         if (cuenta != null) cuenta.setSaldoCuenta(cuenta.getSaldoCuenta() + monto);
     }
 
     public void restaDineroEnCuenta(String nroCuenta, double monto) {
-        CuentaCliente cuenta = buscarCuenta(nroCuenta);
+        BilleteraCliente cuenta = buscarCuenta(nroCuenta);
         if (cuenta != null && cuenta.getSaldoCuenta() >= monto) {
             cuenta.setSaldoCuenta(cuenta.getSaldoCuenta() - monto);
         } else {
@@ -57,8 +57,8 @@ public class GestorBilleteraCliente {
     }
 
     public void transferirDinero(String nroCuentaDestino, String nroCuenta, double monto) {
-        CuentaCliente cuentaDestino = buscarCuenta(nroCuentaDestino);
-        CuentaCliente cuentaOrigen = buscarCuenta(nroCuenta);
+        BilleteraCliente cuentaDestino = buscarCuenta(nroCuentaDestino);
+        BilleteraCliente cuentaOrigen = buscarCuenta(nroCuenta);
 
         if (cuentaDestino != null && cuentaOrigen != null && cuentaOrigen.getSaldoCuenta() >= monto) {
             restaDineroEnCuenta(nroCuenta, monto);

@@ -2,13 +2,13 @@ package gestores;
 
 import java.util.ArrayList;
 import java.util.List;
-import models.CuentaCliente;
+import models.BilleteraCliente;
 import models.Usuario;
 import models.Cliente;
 
 public class GestorUsuarios {
     private static GestorUsuarios singleton;
-    private List<CuentaCliente> cuentas;
+    private List<BilleteraCliente> cuentas;
     private List<Usuario> usuarios;
     private int ultimoId = 0; 
 

@@ -9,6 +9,7 @@
 
     <%
         models.Usuario usuarioLogueado = (models.Usuario) session.getAttribute("usuarioLogueado");
+        models.BilleteraCliente billeteraCliente = (models.BilleteraCliente) session.getAttribute("cuentaCliente");
 
         if (usuarioLogueado != null) {
     %>
@@ -24,6 +25,20 @@
         } else {
     %>
         <p>Error: No se encontró un usuario logueado.</p>
+    <%
+        }
+
+        if (billeteraCliente != null) {
+    %>
+        <p><strong>Datos de la billetera:</strong></p>
+        <ul>
+            <li><strong>DNI de la billetera:</strong> <%= billeteraCliente.getNroCuenta() %></li>
+            <li><strong>Saldo:</strong> <%= billeteraCliente.getSaldoCuenta() %></li>
+        </ul>
+    <%
+        } else {
+    %>
+        <p>Error: No se encontró la billetera del cliente.</p>
     <%
         }
     %>

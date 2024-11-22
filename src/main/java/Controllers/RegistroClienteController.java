@@ -13,7 +13,7 @@ import gestores.GestorBilleteraCliente;
 import gestores.GestorUsuarios;
 import models.Cliente;
 import models.Usuario;
-import models.CuentaCliente;
+import models.BilleteraCliente;
 
 @WebServlet("/registrarUsuario")
 public class RegistroClienteController extends HttpServlet {
@@ -38,7 +38,7 @@ public class RegistroClienteController extends HttpServlet {
         double saldoInicial = Double.parseDouble(request.getParameter("saldoInicial"));
 
         Cliente cliente = new Cliente(0, claveUsuario, nombreUsuario, apellidoUsuario, rolUsuario, dniCliente);
-        CuentaCliente cuentaCliente = new CuentaCliente(cliente, saldoInicial);
+        BilleteraCliente cuentaCliente = new BilleteraCliente(cliente, saldoInicial);
 
         boolean registrado = gestorCuentaUsuario.registrarUsuario(cliente);
 
@@ -46,7 +46,8 @@ public class RegistroClienteController extends HttpServlet {
 
         if (registrado) {
             request.getSession().setAttribute("usuarioLogueado", cliente);
-            
+            request.getSession().setAttribute("cuentaCliente", cuentaCliente);
+
             List<Usuario> usuarios = gestorCuentaUsuario.obtenerUsuarios();
             if (usuarios != null && !usuarios.isEmpty()) {
                 System.out.println("Usuarios registrados:");
@@ -62,6 +63,7 @@ public class RegistroClienteController extends HttpServlet {
             request.setAttribute("mensaje", "Error: el usuario ya existe.");
             request.getRequestDispatcher("registroConfirmacion.jsp").forward(request, response);
         }
+
     }
 }
 

@@ -1,16 +1,16 @@
  package models;
 
-public class CuentaCliente {
+public class BilleteraCliente {
 	
     private String nroCtaCliente;
     private double saldoCtaCliente;
     
     
-	public CuentaCliente() {
+	public BilleteraCliente() {
 		super();
 	}
 
-	public CuentaCliente(Cliente cliente, double saldoCuenta) {
+	public BilleteraCliente(Cliente cliente, double saldoCuenta) {
 		this.nroCtaCliente = cliente.getDniCliente();
 		this.saldoCtaCliente = saldoCuenta;
 	}
