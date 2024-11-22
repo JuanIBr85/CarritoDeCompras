@@ -6,10 +6,10 @@
 <body>
     <h2>Registrar Usuario</h2>
 	<form action="registrarUsuario" method="post">
-	<!-- 
+		<!-- 
         <label for="idUsuario">ID Usuario:</label>
         <input type="number" id="idUsuario" name="idUsuario" required><br>
- 	-->
+ 		-->
  		<label for="dniCliente">DNI Cliente:</label>
         <input type="text" id="dniCliente" name="dniCliente" required><br>
         
@@ -22,9 +22,8 @@
         <label for="apellidoUsuario">Apellido:</label>
         <input type="text" id="apellidoUsuario" name="apellidoUsuario" required><br>        
 
-      <label for="saldoInicial">Saldo Inicial:</label>
-<input type="number" id="saldoInicial" name="saldoInicial" value="0.0" readonly><br>
-
+      	<label for="saldoInicial">Saldo Inicial:</label>
+		<input type="number" id="saldoInicial" name="saldoInicial" value="0.0" readonly><br>
 
         <button type="submit">Registrar</button>
     </form>

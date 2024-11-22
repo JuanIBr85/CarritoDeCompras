@@ -21,8 +21,6 @@ public class RegistroClienteController extends HttpServlet {
     private GestorUsuarios gestorCuentaUsuario;
     private GestorBilleteraCliente gestorCuentaCliente;
 
-    
-    //https://keepcoding.io/blog/que-es-el-patron-singleton-en-java/#:~:text=%C2%BFQu%C3%A9%20es%20el%20patr%C3%B3n%20Singleton%20en%20Java%3F%20El,te%20devolver%C3%A1%20el%20mismo%20objeto%20que%20ya%20existe.
     @Override
     public void init() throws ServletException {
         super.init();
@@ -40,7 +38,6 @@ public class RegistroClienteController extends HttpServlet {
         double saldoInicial = Double.parseDouble(request.getParameter("saldoInicial"));
 
         Cliente cliente = new Cliente(0, claveUsuario, nombreUsuario, apellidoUsuario, rolUsuario, dniCliente);
-
         CuentaCliente cuentaCliente = new CuentaCliente(cliente, saldoInicial);
 
         boolean registrado = gestorCuentaUsuario.registrarUsuario(cliente);
@@ -48,28 +45,24 @@ public class RegistroClienteController extends HttpServlet {
         gestorCuentaCliente.agregaCuenta(cuentaCliente);
 
         if (registrado) {
-            request.setAttribute("mensaje", "Usuario registrado exitosamente.");
+            request.getSession().setAttribute("usuarioLogueado", cliente);
+            
+            List<Usuario> usuarios = gestorCuentaUsuario.obtenerUsuarios();
+            if (usuarios != null && !usuarios.isEmpty()) {
+                System.out.println("Usuarios registrados:");
+                for (Usuario usuario : usuarios) {
+                    System.out.println("ID: " + usuario.getIdUsuario() + " - Nombre: " + usuario.getNombreUsuario() + " - Apellido: " + usuario.getApellidoUsuario());
+                }
+            } else {
+                System.out.println("No hay usuarios registrados.");
+            }
+
+            response.sendRedirect("dashboard.jsp");
         } else {
             request.setAttribute("mensaje", "Error: el usuario ya existe.");
+            request.getRequestDispatcher("registroConfirmacion.jsp").forward(request, response);
         }
-
-        List<Usuario> usuarios = gestorCuentaUsuario.obtenerUsuarios();
-        List<CuentaCliente> cuentasClientes = gestorCuentaCliente.obtenerCuentas();
-
-        request.setAttribute("usuarios", usuarios);
-
-        if (cuentasClientes != null && !cuentasClientes.isEmpty()) {
-            System.out.println("Cuentas de Clientes:");
-            for (CuentaCliente cuenta : cuentasClientes) {
-                System.out.println("Número de Cuenta: " + cuenta.getNroCuenta() + ", Saldo: " + cuenta.getSaldoCuenta());
-            }
-        } else {
-            System.out.println("No hay cuentas de clientes.");
-        }
-
-        request.setAttribute("cuentasClientes", cuentasClientes);
-
-        request.getRequestDispatcher("registroConfirmacion.jsp").forward(request, response);
     }
-
 }
+
+
