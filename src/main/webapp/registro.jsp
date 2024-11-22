@@ -27,5 +27,6 @@
 
         <button type="submit">Registrar</button>
     </form>
+    <p><%= request.getAttribute("mensaje") %></p>
 </body>
 </html>

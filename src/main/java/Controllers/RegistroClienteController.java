@@ -61,7 +61,7 @@ public class RegistroClienteController extends HttpServlet {
             response.sendRedirect("dashboard.jsp");
         } else {
             request.setAttribute("mensaje", "Error: el usuario ya existe.");
-            request.getRequestDispatcher("registroConfirmacion.jsp").forward(request, response);
+            request.getRequestDispatcher("registro.jsp").forward(request, response);
         }
 
     }
