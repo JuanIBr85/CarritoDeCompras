@@ -67,21 +67,31 @@ private GestorBilleteraCliente gestorBilleteraCliente;
 	}
 
 
-	private void postDeposito(HttpServletRequest request, HttpServletResponse response, String nroCuenta) {
+	private void postDeposito(HttpServletRequest request, HttpServletResponse response, String nroCuenta) throws IOException {
 		
-		return;
+		double monto = Double.parseDouble("monto");
+		gestorBilleteraCliente.sumaDineroEnCuenta(nroCuenta, monto);
+		
+		response.sendRedirect("BilleteraCliente.jsp?saldo=" + gestorBilleteraCliente.buscarCuenta(nroCuenta).getSaldoCuenta());
 	}
 
 
-	private void postTransferencia(HttpServletRequest request, HttpServletResponse response, String nroCuenta) {
-		
-		return;
+	private void postTransferencia(HttpServletRequest request, HttpServletResponse response, String nroCuenta) throws IOException {
+		String nroCuentaDestino = request.getParameter("clienteDestino");
+	    double monto = Double.parseDouble(request.getParameter("monto"));
+
+	    gestorBilleteraCliente.transferirDinero(nroCuentaDestino, nroCuenta, monto);
+
+	    response.sendRedirect("BilleteraCliente.jsp?saldo=" + gestorBilleteraCliente.buscarCuenta(nroCuenta).getSaldoCuenta());
 	}
 
 
-	private void postPago(HttpServletRequest request, HttpServletResponse response, String nroCuenta) {
-		
-		return;
+	private void postPago(HttpServletRequest request, HttpServletResponse response, String nroCuenta) throws IOException {
+		double monto = Double.parseDouble(request.getParameter("monto"));
+
+	    gestorBilleteraCliente.restaDineroEnCuenta(nroCuenta, monto);
+
+	    response.sendRedirect("BilleteraCliente.jsp?saldo=" + gestorBilleteraCliente.buscarCuenta(nroCuenta).getSaldoCuenta());
 	}
 
 }

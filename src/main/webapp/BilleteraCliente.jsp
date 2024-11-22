@@ -8,6 +8,13 @@
 </head>
 <body>
 
+<% 
+    HttpSession sesion = request.getSession(false);
+    if (sesion == null || sesion.getAttribute("dniCliente") == null) {
+        response.sendRedirect("login.jsp"); // Redirige al login si no está autenticado
+    }
+%>
+
     <h2>Gestión de Dinero del Cliente</h2>
     
     <div>
