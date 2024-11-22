@@ -22,8 +22,9 @@
         <label for="apellidoUsuario">Apellido:</label>
         <input type="text" id="apellidoUsuario" name="apellidoUsuario" required><br>        
 
-        <label for="saldoInicial">Saldo Inicial:</label>
-        <input type="number" id="saldoInicial" name="saldoInicial" required><br>
+      <label for="saldoInicial">Saldo Inicial:</label>
+<input type="number" id="saldoInicial" name="saldoInicial" value="0.0" readonly><br>
+
 
         <button type="submit">Registrar</button>
     </form>
