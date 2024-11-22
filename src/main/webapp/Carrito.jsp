@@ -96,7 +96,7 @@
                 </table>
 
                 <div class="text-center">
-                    <a href="pago.jsp" class="btn btn-custom">Proceder al Pago</a>
+                    <a href="BilleteraCliente.jsp" class="btn btn-custom">Proceder al Pago</a>
                 </div>
                 <%
                     } else {
