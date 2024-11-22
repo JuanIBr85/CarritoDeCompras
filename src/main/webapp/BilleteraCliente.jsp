@@ -66,5 +66,15 @@
 <% 
     }
 %>
+<%
+    String mensaje = (String) session.getAttribute("mensaje");
+    if (mensaje != null) {
+%>
+        <div style="color: red;"><%= mensaje %></div>
+<%
+        session.removeAttribute("mensaje");
+    }
+%>
+
 </body>
 </html>

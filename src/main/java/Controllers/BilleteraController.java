@@ -74,7 +74,10 @@ public class BilleteraController extends HttpServlet {
         String nroCuentaDestino = request.getParameter("clienteDestino");
         double monto = Double.parseDouble(request.getParameter("monto"));
 
-        gestorBilleteraCliente.transferirDinero(nroCuentaDestino, nroCuenta, monto);
+        String mensaje = gestorBilleteraCliente.transferirDinero(nroCuentaDestino, nroCuenta, monto);
+
+        HttpSession session = request.getSession();
+        session.setAttribute("mensaje", mensaje);
 
         response.sendRedirect("BilleteraCliente.jsp?saldo=" + gestorBilleteraCliente.buscarCuenta(nroCuenta).getSaldoCuenta());
     }

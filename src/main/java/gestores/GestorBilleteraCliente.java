@@ -56,7 +56,7 @@ public class GestorBilleteraCliente {
         }
     }
 
-    public void transferirDinero(String nroCuentaDestino, String nroCuenta, double monto) {
+    public String transferirDinero(String nroCuentaDestino, String nroCuenta, double monto) {
         BilleteraCliente cuentaDestino = buscarCuenta(nroCuentaDestino);
         BilleteraCliente cuentaOrigen = buscarCuenta(nroCuenta);
 
@@ -66,8 +66,12 @@ public class GestorBilleteraCliente {
         if (cuentaDestino != null && cuentaOrigen != null && cuentaOrigen.getSaldoCuenta() >= monto) {
             restaDineroEnCuenta(nroCuenta, monto);
             sumaDineroEnCuenta(nroCuentaDestino, monto);
+            
+            return "Transferencia realizada con éxito.";
         } else {
             System.out.println("No se pudo realizar la transacción.");
+            return "Error: No se pudo realizar la transacción.";
         }
+		
     }
 }
