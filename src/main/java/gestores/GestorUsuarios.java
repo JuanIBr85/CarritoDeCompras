@@ -7,32 +7,27 @@ import models.Usuario;
 import models.Cliente;
 
 public class GestorUsuarios {
-	// Reglas del singleton
-		// 1- Constructor private 
-		// 2- Que tenga un atributo estatico que haga referencia a la clase 
-		// 3- metodo para obtener la instancia. GetInstance() 
-	
     private static GestorUsuarios singleton;
     private List<CuentaCliente> cuentas;
     private List<Usuario> usuarios;
+    private int ultimoId = 0; 
 
     private GestorUsuarios() {
         this.cuentas = new ArrayList<>();
         this.usuarios = new ArrayList<>();
     }
-   
-    //https://keepcoding.io/blog/que-es-el-patron-singleton-en-java/#:~:text=%C2%BFQu%C3%A9%20es%20el%20patr%C3%B3n%20Singleton%20en%20Java%3F%20El,te%20devolver%C3%A1%20el%20mismo%20objeto%20que%20ya%20existe.
+
     public static synchronized GestorUsuarios getInstance() {
         if (singleton == null) {
-        	singleton = new GestorUsuarios();
+            singleton = new GestorUsuarios();
         }
         return singleton;
     }
 
-    public boolean registrarUsuario(Usuario usuario) { //logica del registro de usuario
+    public boolean registrarUsuario(Usuario usuario) {
         boolean existeUsuario = usuarios.stream()
                 .anyMatch(u -> u.getIdUsuario() == usuario.getIdUsuario());
-        
+
         boolean existeDni = false;
         if (usuario instanceof Cliente) {
             String dniCliente = ((Cliente) usuario).getDniCliente();
@@ -50,12 +45,14 @@ public class GestorUsuarios {
             return false;
         }
 
+        usuario.setIdUsuario(++ultimoId); 
+
         usuarios.add(usuario);
         return true;
     }
 
     public List<Usuario> obtenerUsuarios() {
-        return new ArrayList<>(usuarios);
+        return new ArrayList<>(usuarios); 
     }
 
     public Usuario buscarUsuarioPorId(int idUsuario) {
@@ -64,9 +61,16 @@ public class GestorUsuarios {
                 .findFirst()
                 .orElse(null);
     }
-    
-    
-    public Usuario autenticarUsuario(int idUsuario, String claveUsuario) { //logica del login
+
+    public Cliente buscarUsuarioPorDni(String dniCliente) {
+        return usuarios.stream()
+                .filter(u -> u instanceof Cliente && ((Cliente) u).getDniCliente().equals(dniCliente))
+                .map(u -> (Cliente) u) 
+                .findFirst()
+                .orElse(null);
+    }
+
+    public Usuario autenticarUsuario(int idUsuario, String claveUsuario) {
         return usuarios.stream()
                 .filter(u -> u.getIdUsuario() == idUsuario && u.getClaveUsuario().equals(claveUsuario))
                 .findFirst()

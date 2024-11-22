@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.List;
 
 import gestores.GestorUsuarios;
+import models.Cliente;
 import models.Usuario;
 
 @WebServlet("/loginUsuario")
@@ -26,42 +27,26 @@ public class LoginClienteController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String idUsuarioParam = request.getParameter("idUsuario");
+        String dniCliente = request.getParameter("dniCliente");
         String claveUsuario = request.getParameter("claveUsuario");
 
-        System.out.println("Datos recibidos:");
-        System.out.println("ID Usuario: " + idUsuarioParam);
-        System.out.println("Clave Usuario: " + claveUsuario);
-
-        List<Usuario> usuarios = gestorCuentaUsuario.obtenerUsuarios();
-        System.out.println("Usuarios disponibles para login:");
-        for (Usuario u : usuarios) {
-            System.out.println("ID: " + u.getIdUsuario() + ", Clave: " + u.getClaveUsuario());
-        }
-
-        if (idUsuarioParam == null || claveUsuario == null || idUsuarioParam.isEmpty() || claveUsuario.isEmpty()) {
-            System.out.println("Error: Uno o más campos están vacíos.");
+        if (dniCliente == null || claveUsuario == null || dniCliente.isEmpty() || claveUsuario.isEmpty()) {
             request.setAttribute("error", "Por favor completa todos los campos.");
             request.getRequestDispatcher("login.jsp").forward(request, response);
             return;
         }
 
-        int idUsuario = Integer.parseInt(idUsuarioParam);
+        Cliente cliente = gestorCuentaUsuario.buscarUsuarioPorDni(dniCliente);
 
-        Usuario usuario = gestorCuentaUsuario.buscarUsuarioPorId(idUsuario);
-
-        System.out.println("Usuario encontrado: " + (usuario != null ? usuario.toString() : "null"));
-
-        if (usuario != null && usuario.getClaveUsuario().equals(claveUsuario)) {
-            System.out.println("Inicio de sesión exitoso para el usuario con ID: " + idUsuario);
-            request.getSession().setAttribute("usuarioLogueado", usuario);
-            response.sendRedirect("dashboard.jsp"); 
+        if (cliente != null && cliente.getClaveUsuario().equals(claveUsuario)) {
+            request.getSession().setAttribute("usuarioLogueado", cliente);
+            response.sendRedirect("dashboard.jsp");
         } else {
-            System.out.println("Error: Usuario o clave incorrectos.");
-            request.setAttribute("error", "Usuario o clave incorrectos.");
+            request.setAttribute("error", "Cliente o clave incorrectos.");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
     }
+
 
 
 }

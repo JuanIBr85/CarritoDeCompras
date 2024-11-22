@@ -6,8 +6,8 @@
 <body>
     <h2>Login</h2>
     <form action="loginUsuario" method="post">
-        <label for="idUsuario">ID Usuario:</label>
-        <input type="number" id="idUsuario" name="idUsuario" required><br>
+        <label for="dniCliente">DNI Usuario:</label>
+        <input type="number" id="dniCliente" name="dniCliente" required><br>
 
         <label for="claveUsuario">Clave:</label>
         <input type="password" id="claveUsuario" name="claveUsuario" required><br>

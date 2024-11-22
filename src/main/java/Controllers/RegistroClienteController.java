@@ -31,7 +31,6 @@ public class RegistroClienteController extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
         String claveUsuario = request.getParameter("claveUsuario");
         String nombreUsuario = request.getParameter("nombreUsuario");
         String apellidoUsuario = request.getParameter("apellidoUsuario");
@@ -40,9 +39,9 @@ public class RegistroClienteController extends HttpServlet {
 
         double saldoInicial = Double.parseDouble(request.getParameter("saldoInicial"));
 
-        Cliente cliente = new Cliente(idUsuario, claveUsuario, nombreUsuario, apellidoUsuario, rolUsuario, dniCliente);
+        Cliente cliente = new Cliente(0, claveUsuario, nombreUsuario, apellidoUsuario, rolUsuario, dniCliente);
 
-        CuentaCliente cuentaCliente = new CuentaCliente(cliente, saldoInicial);  
+        CuentaCliente cuentaCliente = new CuentaCliente(cliente, saldoInicial);
 
         boolean registrado = gestorCuentaUsuario.registrarUsuario(cliente);
 
@@ -55,10 +54,10 @@ public class RegistroClienteController extends HttpServlet {
         }
 
         List<Usuario> usuarios = gestorCuentaUsuario.obtenerUsuarios();
-        List<CuentaCliente> cuentasClientes = gestorCuentaCliente.obtenerCuentas();  
+        List<CuentaCliente> cuentasClientes = gestorCuentaCliente.obtenerCuentas();
 
         request.setAttribute("usuarios", usuarios);
-        
+
         if (cuentasClientes != null && !cuentasClientes.isEmpty()) {
             System.out.println("Cuentas de Clientes:");
             for (CuentaCliente cuenta : cuentasClientes) {
@@ -68,8 +67,9 @@ public class RegistroClienteController extends HttpServlet {
             System.out.println("No hay cuentas de clientes.");
         }
 
-        request.setAttribute("cuentasClientes", cuentasClientes); 
-        
+        request.setAttribute("cuentasClientes", cuentasClientes);
+
         request.getRequestDispatcher("registroConfirmacion.jsp").forward(request, response);
     }
+
 }
