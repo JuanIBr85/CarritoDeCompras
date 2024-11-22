@@ -60,6 +60,9 @@ public class GestorBilleteraCliente {
         BilleteraCliente cuentaDestino = buscarCuenta(nroCuentaDestino);
         BilleteraCliente cuentaOrigen = buscarCuenta(nroCuenta);
 
+        System.out.println("Cuenta Destino: " + cuentaDestino);
+        System.out.println("Cuenta Origen: " + cuentaOrigen);
+        
         if (cuentaDestino != null && cuentaOrigen != null && cuentaOrigen.getSaldoCuenta() >= monto) {
             restaDineroEnCuenta(nroCuenta, monto);
             sumaDineroEnCuenta(nroCuentaDestino, monto);
