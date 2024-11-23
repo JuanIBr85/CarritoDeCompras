@@ -9,7 +9,8 @@ public class Producto {
     private String unidadMedidaProducto;
     private double precio;
     private String imagen;  
-
+    private int cantidad;
+    
     public Producto(int idProducto, String codProducto ,String nombre, String descripcion, double precio, int stockProducto, String unidadMedidaProducto, String imagen) { 
         this.idProducto = idProducto;
         this.codProducto = codProducto;
@@ -26,6 +27,14 @@ public class Producto {
 		super();
 	}
 
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+    
 	public int getIdProducto() {
         return idProducto;
     }

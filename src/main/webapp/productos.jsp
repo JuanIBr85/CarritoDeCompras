@@ -94,6 +94,14 @@
                                 <input type="hidden" name="NombreProducto" value="<%= producto.getNombre() %>">
                                 <input type="hidden" name="PrecioProducto" value="<%= producto.getPrecio() %>">
                                 <input type="hidden" name="StockProducto" value="<%= producto.getStockProducto() %>">
+                                
+                                	
+                               <div class="mb-3">
+    							<label for="cantidad" class="form-label">Cantidad</label>
+   								 <input type="number" class="form-control" id="cantidad" name="Cantidad" min="1" max="<%= producto.getStockProducto() %>" value="1" required>
+								</div>
+
+                                
                                 <button type="submit" class="btn btn-custom w-100">Agregar al carrito</button>
                             </form>
                         </div>

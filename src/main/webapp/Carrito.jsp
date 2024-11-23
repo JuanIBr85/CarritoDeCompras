@@ -64,6 +64,7 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
+                            <th scope="col">Codigo</th>
                             <th scope="col">Producto</th>
                             <th scope="col">Precio</th>
                             <th scope="col">Cantidad</th>
@@ -75,11 +76,13 @@
                             double total = 0;
                             for (Producto producto : carrito) {
                                 double precio = producto.getPrecio();
-                                int cantidad = 1; 
+                                int cantidad = producto.getCantidad(); 
                                 double subtotal = precio * cantidad;
                                 total += subtotal;
                         %>
                         <tr>
+                            <td><%= producto.getCodProducto() %></td>
+                        
                             <td><%= producto.getNombre() %></td>
                             <td>$<%= producto.getPrecio() %></td>
                             <td><%= cantidad %></td>
