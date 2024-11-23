@@ -58,18 +58,13 @@
             </div>
             <div class="mb-3">
                 <label for="saldoInicial" class="form-label">Saldo Inicial</label>
-                <input type="number" id="saldoInicial" name="saldoInicial" class="form-control" value="0.0" readonly disabled>
+                <input type="number" id="saldoInicial" name="saldoInicial" class="form-control" value="0.0" readonly>
             </div>
             <button type="submit" class="btn btn-primary">Registrar</button>
         </form>
-       <% 
-   		 String mensaje = (String) request.getAttribute("mensaje");
-   		 if (mensaje != null && !mensaje.isEmpty()) { 
-		%>
-  		  <div class="message"><%= mensaje %></div>
-		<% 
-   		 } 
-		%>	
+        <div class="message">
+            <%= request.getAttribute("mensaje") %>
+        </div>
     </div>
 </body>
 </html>
