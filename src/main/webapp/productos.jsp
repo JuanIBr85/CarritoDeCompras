@@ -118,7 +118,7 @@
     <% } %>
 </div>
 
-        
+        	
         <% 
     String mensaje = (String) request.getAttribute("mensaje");
     if (mensaje != null) { 

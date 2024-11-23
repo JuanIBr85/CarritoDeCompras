@@ -109,7 +109,7 @@
                         <ul class="list-group">
                             <% for (models.Producto producto : compra.getProductos()) { %>
                             <li class="list-group-item">
-                                <%= producto.getNombre() %> - $<%= producto.getPrecio() %>
+        <%= producto.getNombre() %> - $<%= producto.getPrecio() %> - Cantidad: <%= producto.getCantidad() %>
                             </li>
                             <% } %>
                         </ul>
