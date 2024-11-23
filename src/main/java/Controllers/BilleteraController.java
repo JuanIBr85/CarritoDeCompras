@@ -1,6 +1,8 @@
 package Controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.ServletException;
@@ -9,9 +11,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.PrintStream;
 
+import models.Producto;
 import gestores.GestorBilleteraCliente;
 import models.Cliente;  
+import models.Compra;
+import models.Producto;
 
 @WebServlet("/BilleteraController")
 public class BilleteraController extends HttpServlet {
@@ -83,10 +89,51 @@ public class BilleteraController extends HttpServlet {
     }
 
     private void postPago(HttpServletRequest request, HttpServletResponse response, String nroCuenta) throws IOException {
+        System.out.println("Iniciando postPago...");
+
         double monto = Double.parseDouble(request.getParameter("monto"));
+        String clienteDni = request.getParameter("clienteDni");
+        System.out.println("Monto: " + monto);
+        System.out.println("Cliente DNI: " + clienteDni);
 
         gestorBilleteraCliente.restaDineroEnCuenta(nroCuenta, monto);
+        System.out.println("Dinero restado de la cuenta: " + nroCuenta);
 
-        response.sendRedirect("BilleteraCliente.jsp?saldo=" + gestorBilleteraCliente.buscarCuenta(nroCuenta).getSaldoCuenta());
+        HttpSession session = request.getSession();
+        List<Producto> carrito = (List<Producto>) session.getAttribute("carrito");
+
+        if (carrito != null && !carrito.isEmpty()) {
+            System.out.println("Carrito: Productos cargados");
+            System.out.println("Cantidad de productos en el carrito: " + carrito.size());
+
+            for (Producto producto : carrito) {
+                if (producto != null) {
+                    System.out.println("Producto: " + producto.getNombre() + 
+                                       ", Precio: " + producto.getPrecio());
+                } else {
+                    System.out.println("Producto vacío en el carrito");
+                }
+            }
+        } else {
+            System.out.println("Carrito: Vacío o no encontrado");
+        }
+
+        
+        Compra nuevaCompra = new Compra(clienteDni, carrito, monto);
+        Compra.agregarCompra(nuevaCompra);
+        System.out.println("Nueva compra agregada: " + nuevaCompra);
+
+        List<Compra> historialCompras = Compra.obtenerHistorialCompras();
+        System.out.println("Historial de compras:");
+        for (Compra compra : historialCompras) {
+            System.out.println(compra); 
+        }
+
+
+        double saldoActual = gestorBilleteraCliente.buscarCuenta(nroCuenta).getSaldoCuenta();
+        System.out.println("Saldo actualizado: " + saldoActual);
+
+        response.sendRedirect("BilleteraCliente.jsp?saldo=" + saldoActual);
     }
+
 }

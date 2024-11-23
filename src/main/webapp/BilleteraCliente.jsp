@@ -56,13 +56,14 @@
             <button type="submit">Transferir monto</button>
         </form>
 
+<!-- 
         <form action="BilleteraController" method="post">
             <h3>Realizar Pago</h3>
             <input type="hidden" name="accion" value="pago">
             <input type="number" name="monto" placeholder="Monto a pagar" required>
             <button type="submit">Realizar Pago</button>
         </form>
-
+ -->
 <% 
     }
 %>
