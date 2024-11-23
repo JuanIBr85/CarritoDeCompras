@@ -1,4 +1,6 @@
 <%@ page import="models.Producto" %>
+<%@ page import="models.Cliente" %>
+<%@ page import="models.BilleteraCliente" %>
 <%@ page import="java.util.List" %>
 
 <!DOCTYPE html>
@@ -58,59 +60,54 @@
 </head>
 <body>
     <div class="container mt-5">
+        <%
+        Cliente clienteLogueado = (Cliente) session.getAttribute("usuarioLogueado");
+        BilleteraCliente billeteraCliente = (BilleteraCliente) session.getAttribute("cuentaCliente");
+        List<Producto> productos = (List<Producto>) session.getAttribute("productos");
+        %>
+
+        <div class="text-end mb-4">
+            <% if (clienteLogueado != null) { %>
+                <p>Bienvenido, <strong><%= clienteLogueado.getNombreUsuario() %></strong></p>
+            <% } else { %>
+                <a href="login.jsp" class="btn btn-custom">Iniciar Sesión</a>
+            <% } %>
+        </div>
+
         <h1 class="text-center mb-4 text-primary">Lista de Productos</h1>
 
         <div class="row">
-            <%
-            models.Cliente clienteLogueado = (models.Cliente) session.getAttribute("usuarioLogueado");
-            models.BilleteraCliente billeteraCliente = (models.BilleteraCliente) session.getAttribute("cuentaCliente");
-            
-            List<Producto> productos = (List<Producto>) session.getAttribute("productos");
-
-                if (productos != null && !productos.isEmpty()) {
-                    for (Producto producto : productos) {
-            %>
-            <div class="col-md-4 col-sm-6 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title"><%= producto.getNombre() %></h5>
-                        <p class="card-text"><strong>Código:</strong> <%= producto.getCodProducto() %></p>
-                        <p class="card-text"><strong>Descripción:</strong> <%= producto.getDescripcion() != null ? producto.getDescripcion() : "No disponible" %></p>
-                        <p class="card-text"><strong>Stock:</strong> <%= producto.getStockProducto() %></p>
-                        <p class="card-text"><strong>Unidad de Medida:</strong> <%= producto.getUnidadMedidaProducto() %></p>
-                        <p class="card-text"><strong>Precio:</strong> $<%= producto.getPrecio() %></p>
-                        
-                        <form action="AgregarCarritoController" method="post">
-                            <input type="hidden" name="CodProducto" value="<%= producto.getCodProducto() %>">
-                            <input type="hidden" name="NombreProducto" value="<%= producto.getNombre() %>">
-                            <input type="hidden" name="PrecioProducto" value="<%= producto.getPrecio() %>">
-                            <input type="hidden" name="StockProducto" value="<%= producto.getStockProducto() %>">
-                            <button type="submit" class="btn btn-custom w-100">Agregar al carrito</button>
-                        </form>
+            <% if (productos != null && !productos.isEmpty()) { 
+                for (Producto producto : productos) { %>
+                <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= producto.getNombre() %></h5>
+                            <p class="card-text"><strong>Código:</strong> <%= producto.getCodProducto() %></p>
+                            <p class="card-text"><strong>Descripción:</strong> <%= producto.getDescripcion() != null ? producto.getDescripcion() : "No disponible" %></p>
+                            <p class="card-text"><strong>Stock:</strong> <%= producto.getStockProducto() %></p>
+                            <p class="card-text"><strong>Unidad de Medida:</strong> <%= producto.getUnidadMedidaProducto() %></p>
+                            <p class="card-text"><strong>Precio:</strong> $<%= producto.getPrecio() %></p>
+                            
+                            <form action="AgregarCarritoController" method="post">
+                                <input type="hidden" name="CodProducto" value="<%= producto.getCodProducto() %>">
+                                <input type="hidden" name="NombreProducto" value="<%= producto.getNombre() %>">
+                                <input type="hidden" name="PrecioProducto" value="<%= producto.getPrecio() %>">
+                                <input type="hidden" name="StockProducto" value="<%= producto.getStockProducto() %>">
+                                <button type="submit" class="btn btn-custom w-100">Agregar al carrito</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <%
-                    }
-                } else {
-            %>
-            <div class="col-12">
-                <div class="alert alert-warning text-center" role="alert">
-                    No hay productos disponibles.
+            <% } } else { %>
+                <div class="col-12">
+                    <div class="alert alert-warning text-center" role="alert">
+                        No hay productos disponibles.
+                    </div>
                 </div>
-            </div>
-            <%
-                }
-            %>
+            <% } %>
         </div>
-
-	<h3>Información del Usuario</h3>
-            <ul>
-                <li><strong>DNI:</strong> <%= clienteLogueado.getDniCliente() %></li>
-                <li><strong>Nombre:</strong> <%= clienteLogueado.getNombreUsuario() %></li>
-                <li><strong>Apellido:</strong> <%= clienteLogueado.getApellidoUsuario() %></li>
-            </ul>
-            
+        
         <a href="Carrito.jsp" class="btn btn-success btn-carrito">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
                 <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
@@ -118,6 +115,5 @@
             Ver Carrito
         </a>    
     </div>
-
 </body>
 </html>

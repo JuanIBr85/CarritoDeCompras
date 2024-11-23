@@ -1,6 +1,5 @@
 <%@ page import="models.Producto" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.Iterator" %>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -58,11 +57,9 @@
             <div class="card-body">
                 <%
                 models.Cliente clienteLogueado = (models.Cliente) session.getAttribute("usuarioLogueado");
-                models.BilleteraCliente billeteraCliente = (models.BilleteraCliente) session.getAttribute("cuentaCliente");
-                
-                    List<Producto> carrito = (List<Producto>) session.getAttribute("carrito");
+                List<Producto> carrito = (List<Producto>) session.getAttribute("carrito");
 
-                    if (carrito != null && !carrito.isEmpty()) {
+                if (carrito != null && !carrito.isEmpty()) {
                 %>
                 <table class="table table-striped">
                     <thead>
@@ -99,28 +96,39 @@
                 </table>
 
                 <div class="text-center">
-                   <!--  <a href="BilleteraCliente.jsp" class="btn btn-custom">Proceder al Pago</a> -->
-                </div>
-                 <form action="BilleteraController" method="post">
-         	   <h3>Realizar Pago</h3>
-           			 <input type="hidden" name="accion" value="pago">
-           			 <input type="text" name="clienteDni" value="<%= clienteLogueado.getDniCliente()%>" readonly>
-           			 <input type="number" name="monto" placeholder="Monto a pagar" value="<%= total %>" readonly>
-           			 <button type="submit">Realizar Pago</button>
-        		</form>
-                <%
+                    <%
+                    if (clienteLogueado == null) {
+                    %>
+                    <div class="alert alert-warning text-center" role="alert">
+                        Debes iniciar sesión para proceder al pago.
+                    </div>
+                    <a href="login.jsp" class="btn btn-custom">Iniciar Sesión</a>
+                    <%
                     } else {
+                    %>
+                    <form action="BilleteraController" method="post">
+                        <h3>Realizar Pago</h3>
+                        <input type="hidden" name="accion" value="pago">
+                        <input type="text" name="clienteDni" value="<%= clienteLogueado.getDniCliente() %>" readonly>
+                        <input type="number" name="monto" value="<%= total %>" readonly>
+                        <button type="submit" class="btn btn-custom">Realizar Pago</button>
+                    </form>
+                    <%
+                    }
+                    %>
+                </div>
+                <%
+                } else {
                 %>
                 <div class="alert alert-warning text-center" role="alert">
-                    No hay productos en tu carrito. 
+                    No hay productos en tu carrito.
                 </div>
                 <%
-                    }
+                }
                 %>
             </div>
         </div>
     </div>
-   
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

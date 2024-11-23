@@ -114,26 +114,28 @@ public class BilleteraController extends HttpServlet {
                     System.out.println("Producto vacío en el carrito");
                 }
             }
+
+            Compra nuevaCompra = new Compra(clienteDni, carrito, monto);
+            Compra.agregarCompra(nuevaCompra);
+            System.out.println("Nueva compra agregada: " + nuevaCompra);
+
+            session.removeAttribute("carrito");
+            System.out.println("Carrito vaciado después de la compra.");
+
+            List<Compra> historialCompras = Compra.obtenerHistorialCompras();
+            session.setAttribute("historialCompras", historialCompras);
+            System.out.println("Historial de compras guardado en la sesión.");
         } else {
             System.out.println("Carrito: Vacío o no encontrado");
         }
 
-        
-        Compra nuevaCompra = new Compra(clienteDni, carrito, monto);
-        Compra.agregarCompra(nuevaCompra);
-        System.out.println("Nueva compra agregada: " + nuevaCompra);
-
-        List<Compra> historialCompras = Compra.obtenerHistorialCompras();
-        System.out.println("Historial de compras:");
-        for (Compra compra : historialCompras) {
-            System.out.println(compra); 
-        }
-
-
         double saldoActual = gestorBilleteraCliente.buscarCuenta(nroCuenta).getSaldoCuenta();
         System.out.println("Saldo actualizado: " + saldoActual);
 
-        response.sendRedirect("BilleteraCliente.jsp?saldo=" + saldoActual);
+        response.sendRedirect("dashboard.jsp");
     }
+
+
+
 
 }
