@@ -61,14 +61,15 @@ public class ProductoControllers extends HttpServlet {
         accion = Optional.ofNullable(accion).orElse("ListaProductos");
 
         switch (accion) {
-            case "Alta" -> getAltaProducto(request, response);
-            case "Modificacion"->getModificacionProducto(request,response);
-            case "Baja"->getBajaProducto(request,response);
+            case "Alta" -> postAltaProducto(request, response);
+            case "Modificacion"->postModificacionProducto(request,response);
+            case "Baja"->postBajaProducto(request,response);
             default -> response.sendError(404, "No existe la acción.");
         }	
 	}
 
-	private void getAltaProducto(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+	private void postAltaProducto(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		try {
 		String codProd = request.getParameter("CodProducto");
@@ -100,14 +101,37 @@ public class ProductoControllers extends HttpServlet {
 	}
 			
 
-	private void getModificacionProducto(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		response.sendRedirect("AccionesProductos.jsp");
+	private void postModificacionProducto(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+		 String accion = request.getParameter("accion");
+
+		    if ("Modificacion".equals(accion)) {
+		        String codProd = request.getParameter("CodProducto");
+		        String nombreProd = request.getParameter("NombreProducto");
+		        String unidadMedidaProd = request.getParameter("UnidadMedidaProducto");
+		        double precioProd = Double.parseDouble(request.getParameter("PrecioProducto"));
+		        int stockProd = Integer.parseInt(request.getParameter("StockProducto"));
+		        
+		        Producto productoModificado = new Producto();
+		        productoModificado.setNombre(nombreProd);
+		        productoModificado.setUnidadMedidaProducto(unidadMedidaProd);
+		        productoModificado.setPrecio(precioProd);
+		        productoModificado.setStockProducto(stockProd);
+		        
+		        boolean resultado = GestorProducto.getInstance().modificarProducto(codProd, productoModificado);
+		        
+		        if (resultado) {
+		            response.sendRedirect("AccionesProductos.jsp?mensaje=Producto actualizado con éxito");
+		        } else {
+		            response.sendRedirect("AccionesProductos.jsp?error=No se pudo actualizar el producto");
+		        }
+		    }
+	}
+	
+	private void postBajaProducto(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
 		return;
 	}
 
-	private void getBajaProducto(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		response.sendRedirect("AccionesProductos.jsp");
-		return;
-	}
 
 }

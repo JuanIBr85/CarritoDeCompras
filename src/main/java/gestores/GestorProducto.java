@@ -1,5 +1,6 @@
 package gestores;
 
+import java.nio.channels.NonReadableChannelException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,5 +82,38 @@ public void darIngresoAlStock(String codigo , int cantidad) {
 		} else {
 			System.out.println("El stock no es suficiente.");
 		}
+	}
+	
+	public boolean modificarProducto(String codigo, Producto ProductoModificado) {
+		
+		Producto productoCreado = buscaProductoPorCod(codigo);
+		
+		if (productoCreado!=null) {
+			
+			if (ProductoModificado.getNombre()!=null && !ProductoModificado.getNombre().isEmpty()) {
+				productoCreado.setNombre(ProductoModificado.getNombre());
+			}
+			
+			if (ProductoModificado.getUnidadMedidaProducto()!=null && !ProductoModificado.getUnidadMedidaProducto().isEmpty()) {
+				productoCreado.setUnidadMedidaProducto(ProductoModificado.getUnidadMedidaProducto());
+			}
+			
+			if (ProductoModificado.getPrecio()>0) {
+				productoCreado.setPrecio(ProductoModificado.getPrecio());
+			}
+			
+			if (ProductoModificado.getStockProducto()>=0) {
+				productoCreado.setStockProducto(ProductoModificado.getStockProducto());
+			}
+			
+		 System.out.println("Producto actualizado con éxito.");
+		    return true;
+
+		}else {
+	        System.out.println("El producto con el código especificado no existe.");
+	        return false;
+		}
+		
+
 	}
 }
