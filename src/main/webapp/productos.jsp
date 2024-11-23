@@ -81,30 +81,35 @@
                 for (Producto producto : productos) { %>
                 <div class="col-md-4 col-sm-6 mb-4">
                     <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title"><%= producto.getNombre() %></h5>
-                            <p class="card-text"><strong>Código:</strong> <%= producto.getCodProducto() %></p>
-                            <p class="card-text"><strong>Descripción:</strong> <%= producto.getDescripcion() != null ? producto.getDescripcion() : "No disponible" %></p>
-                            <p class="card-text"><strong>Stock:</strong> <%= producto.getStockProducto() %></p>
-                            <p class="card-text"><strong>Unidad de Medida:</strong> <%= producto.getUnidadMedidaProducto() %></p>
-                            <p class="card-text"><strong>Precio:</strong> $<%= producto.getPrecio() %></p>
-                            
-                            <form action="AgregarCarritoController" method="post">
-                                <input type="hidden" name="CodProducto" value="<%= producto.getCodProducto() %>">
-                                <input type="hidden" name="NombreProducto" value="<%= producto.getNombre() %>">
-                                <input type="hidden" name="PrecioProducto" value="<%= producto.getPrecio() %>">
-                                <input type="hidden" name="StockProducto" value="<%= producto.getStockProducto() %>">
-                                
-                                	
-                               <div class="mb-3">
-    							<label for="cantidad" class="form-label">Cantidad</label>
-   								 <input type="number" class="form-control" id="cantidad" name="Cantidad" min="1" max="<%= producto.getStockProducto() %>" value="1" required>
-								</div>
+        <div class="card-body">
+            <h5 class="card-title"><%= producto.getNombre() %></h5>
+            <p class="card-text"><strong>Código:</strong> <%= producto.getCodProducto() %></p>
+            <p class="card-text"><strong>Descripción:</strong> <%= producto.getDescripcion() != null ? producto.getDescripcion() : "No disponible" %></p>
+            <p class="card-text"><strong>Stock:</strong> <%= producto.getStockProducto() %></p>
+            <p class="card-text"><strong>Unidad de Medida:</strong> <%= producto.getUnidadMedidaProducto() %></p>
+            <p class="card-text"><strong>Precio:</strong> $<%= producto.getPrecio() %></p>
+            
+            <% if (producto.getStockProducto() > 0) { %>
+                <form action="AgregarCarritoController" method="post">
+                    <input type="hidden" name="CodProducto" value="<%= producto.getCodProducto() %>">
+                    <input type="hidden" name="NombreProducto" value="<%= producto.getNombre() %>">
+                    <input type="hidden" name="PrecioProducto" value="<%= producto.getPrecio() %>">
+                    <input type="hidden" name="StockProducto" value="<%= producto.getStockProducto() %>">
+                    
+                    <div class="mb-3">
+                        <label for="cantidad" class="form-label">Cantidad</label>
+                        <input type="number" class="form-control" id="cantidad" name="Cantidad" min="1" max="<%= producto.getStockProducto() %>" value="1" required>
+                    </div>
 
-                                
-                                <button type="submit" class="btn btn-custom w-100">Agregar al carrito</button>
-                            </form>
-                        </div>
+                    <button type="submit" class="btn btn-custom w-100">Agregar al carrito</button>
+                </form>
+            <% } else { %>
+                <div class="alert alert-danger text-center mt-3">
+                    Producto fuera de stock
+                </div>
+            <% } %>
+        </div>
+    </div>
                     </div>
                 </div>
             <% } } else { %>
@@ -115,6 +120,18 @@
                 </div>
             <% } %>
         </div>
+        
+        <% 
+    String mensaje = (String) request.getAttribute("mensaje");
+    if (mensaje != null) { 
+%>
+    <div class="alert alert-warning text-center" role="alert">
+        <%= mensaje %>
+    </div>
+<% 
+    } 
+%>
+        
         
         <a href="Carrito.jsp" class="btn btn-success btn-carrito">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">

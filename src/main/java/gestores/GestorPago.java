@@ -9,9 +9,11 @@ import models.Producto;
 
 public class GestorPago {
     private GestorBilleteraCliente gestorBilleteraCliente;
-    
+    private GestorProducto gestorProducto;
+
     public GestorPago(GestorBilleteraCliente gestorBilleteraCliente) {
         this.gestorBilleteraCliente = gestorBilleteraCliente;
+        this.gestorProducto = GestorProducto.getInstance();
     }
 
     public boolean procesarPago(String nroCuenta, double monto, String clienteDni, HttpSession session) {
@@ -35,7 +37,9 @@ public class GestorPago {
 
             for (Producto producto : carrito) {
                 if (producto != null) {
-                    System.out.println("Producto: " + producto.getNombre() + ", Precio: " + producto.getPrecio());
+                    System.out.println("Producto: " + producto.getNombre() + ", Cantidad: " + producto.getCantidad());
+
+                    gestorProducto.darBajaAlStock(producto.getCodProducto(), producto.getCantidad());
                 } else {
                     System.out.println("Producto vacío en el carrito");
                 }

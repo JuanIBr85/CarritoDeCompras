@@ -51,7 +51,7 @@ public class AgregarCarritoController extends HttpServlet {
                 int nuevaCantidad = p.getCantidad() + cantidad;
 
                 if (nuevaCantidad > stockProducto) {
-                    request.setAttribute("error", "La cantidad supera el stock disponible.");
+                    request.setAttribute("mensaje", "La cantidad supera el stock disponible.");
                     request.getRequestDispatcher("productos.jsp").forward(request, response);
                     return;
                 } else {
@@ -63,7 +63,7 @@ public class AgregarCarritoController extends HttpServlet {
 
         if (!productoExiste) {
             if (cantidad > stockProducto) {
-                request.setAttribute("error", "La cantidad supera el stock disponible.");
+                request.setAttribute("mensaje", "La cantidad supera el stock disponible.");
                 request.getRequestDispatcher("productos.jsp").forward(request, response);
                 return;
             }
