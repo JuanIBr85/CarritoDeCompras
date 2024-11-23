@@ -76,50 +76,48 @@
 
         <h1 class="text-center mb-4 text-primary">Lista de Productos</h1>
 
-        <div class="row">
-            <% if (productos != null && !productos.isEmpty()) { 
-                for (Producto producto : productos) { %>
-                <div class="col-md-4 col-sm-6 mb-4">
-                    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title"><%= producto.getNombre() %></h5>
-            <p class="card-text"><strong>Código:</strong> <%= producto.getCodProducto() %></p>
-            <p class="card-text"><strong>Descripción:</strong> <%= producto.getDescripcion() != null ? producto.getDescripcion() : "No disponible" %></p>
-            <p class="card-text"><strong>Stock:</strong> <%= producto.getStockProducto() %></p>
-            <p class="card-text"><strong>Unidad de Medida:</strong> <%= producto.getUnidadMedidaProducto() %></p>
-            <p class="card-text"><strong>Precio:</strong> $<%= producto.getPrecio() %></p>
-            
-            <% if (producto.getStockProducto() > 0) { %>
-                <form action="AgregarCarritoController" method="post">
-                    <input type="hidden" name="CodProducto" value="<%= producto.getCodProducto() %>">
-                    <input type="hidden" name="NombreProducto" value="<%= producto.getNombre() %>">
-                    <input type="hidden" name="PrecioProducto" value="<%= producto.getPrecio() %>">
-                    <input type="hidden" name="StockProducto" value="<%= producto.getStockProducto() %>">
-                    
-                    <div class="mb-3">
-                        <label for="cantidad" class="form-label">Cantidad</label>
-                        <input type="number" class="form-control" id="cantidad" name="Cantidad" min="1" max="<%= producto.getStockProducto() %>" value="1" required>
-                    </div>
+       <div class="d-flex flex-wrap justify-content-start gap-4">
+    <% if (productos != null && !productos.isEmpty()) { 
+        for (Producto producto : productos) { %>
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title"><%= producto.getNombre() %></h5>
+                <p class="card-text"><strong>Código:</strong> <%= producto.getCodProducto() %></p>
+                <p class="card-text"><strong>Descripción:</strong> <%= producto.getDescripcion() != null ? producto.getDescripcion() : "No disponible" %></p>
+                <p class="card-text"><strong>Stock:</strong> <%= producto.getStockProducto() %></p>
+                <p class="card-text"><strong>Unidad de Medida:</strong> <%= producto.getUnidadMedidaProducto() %></p>
+                <p class="card-text"><strong>Precio:</strong> $<%= producto.getPrecio() %></p>
+                
+                <% if (producto.getStockProducto() > 0) { %>
+                    <form action="AgregarCarritoController" method="post">
+                        <input type="hidden" name="CodProducto" value="<%= producto.getCodProducto() %>">
+                        <input type="hidden" name="NombreProducto" value="<%= producto.getNombre() %>">
+                        <input type="hidden" name="PrecioProducto" value="<%= producto.getPrecio() %>">
+                        <input type="hidden" name="StockProducto" value="<%= producto.getStockProducto() %>">
+                        
+                        <div class="mb-3">
+                            <label for="cantidad" class="form-label">Cantidad</label>
+                            <input type="number" class="form-control" id="cantidad" name="Cantidad" min="1" max="<%= producto.getStockProducto() %>" value="1" required>
+                        </div>
 
-                    <button type="submit" class="btn btn-custom w-100">Agregar al carrito</button>
-                </form>
-            <% } else { %>
-                <div class="alert alert-danger text-center mt-3">
-                    Producto fuera de stock
-                </div>
-            <% } %>
-        </div>
-    </div>
+                        <button type="submit" class="btn btn-custom w-100">Agregar al carrito</button>
+                    </form>
+                <% } else { %>
+                    <div class="alert alert-danger text-center mt-3">
+                        Producto fuera de stock
                     </div>
-                </div>
-            <% } } else { %>
-                <div class="col-12">
-                    <div class="alert alert-warning text-center" role="alert">
-                        No hay productos disponibles.
-                    </div>
-                </div>
-            <% } %>
+                <% } %>
+            </div>
         </div>
+    <% } } else { %>
+        <div class="col-12">
+            <div class="alert alert-warning text-center" role="alert">
+                No hay productos disponibles.
+            </div>
+        </div>
+    <% } %>
+</div>
+
         
         <% 
     String mensaje = (String) request.getAttribute("mensaje");
@@ -131,8 +129,6 @@
 <% 
     } 
 %>
-        
-        
         <a href="Carrito.jsp" class="btn btn-success btn-carrito">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
                 <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
