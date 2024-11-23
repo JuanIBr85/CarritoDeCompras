@@ -53,7 +53,6 @@ public class ProductoControllers extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
 		
 		String codProd = request.getParameter("CodProducto");
 		String nombreProd = request.getParameter("NombreProducto");

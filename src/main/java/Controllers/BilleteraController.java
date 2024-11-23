@@ -15,6 +15,7 @@ import java.io.PrintStream;
 
 import models.Producto;
 import gestores.GestorBilleteraCliente;
+import gestores.GestorPago;
 import models.Cliente;  
 import models.Compra;
 import models.Producto;
@@ -96,46 +97,18 @@ public class BilleteraController extends HttpServlet {
         System.out.println("Monto: " + monto);
         System.out.println("Cliente DNI: " + clienteDni);
 
-        gestorBilleteraCliente.restaDineroEnCuenta(nroCuenta, monto);
-        System.out.println("Dinero restado de la cuenta: " + nroCuenta);
+        GestorPago gestorPago = new GestorPago(gestorBilleteraCliente);
 
-        HttpSession session = request.getSession();
-        List<Producto> carrito = (List<Producto>) session.getAttribute("carrito");
+        boolean pagoExitoso = gestorPago.procesarPago(nroCuenta, monto, clienteDni, request.getSession());
 
-        if (carrito != null && !carrito.isEmpty()) {
-            System.out.println("Carrito: Productos cargados");
-            System.out.println("Cantidad de productos en el carrito: " + carrito.size());
-
-            for (Producto producto : carrito) {
-                if (producto != null) {
-                    System.out.println("Producto: " + producto.getNombre() + 
-                                       ", Precio: " + producto.getPrecio());
-                } else {
-                    System.out.println("Producto vacío en el carrito");
-                }
-            }
-
-            Compra nuevaCompra = new Compra(clienteDni, carrito, monto);
-            Compra.agregarCompra(nuevaCompra);
-            System.out.println("Nueva compra agregada: " + nuevaCompra);
-
-            session.removeAttribute("carrito");
-            System.out.println("Carrito vaciado después de la compra.");
-
-            List<Compra> historialCompras = Compra.obtenerHistorialCompras();
-            session.setAttribute("historialCompras", historialCompras);
-            System.out.println("Historial de compras guardado en la sesión.");
+        if (pagoExitoso) {
+            double saldoActual = gestorPago.obtenerSaldoActual(nroCuenta);
+            System.out.println("Saldo actualizado: " + saldoActual);
+            response.sendRedirect("dashboard.jsp");
         } else {
-            System.out.println("Carrito: Vacío o no encontrado");
+            HttpSession session = request.getSession();
+            session.setAttribute("mensaje", "No se pudo procesar la compra. El carrito está vacío.");
+            response.sendRedirect("dashboard.jsp");
         }
-
-        double saldoActual = gestorBilleteraCliente.buscarCuenta(nroCuenta).getSaldoCuenta();
-        System.out.println("Saldo actualizado: " + saldoActual);
-
-        response.sendRedirect("dashboard.jsp");
     }
-
-
-
-
 }
