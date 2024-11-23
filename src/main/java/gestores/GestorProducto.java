@@ -13,6 +13,8 @@ public class GestorProducto {
 	// 3- metodo para obtener la instancia. GetInstance() 
 		
 	private static GestorProducto singleton; // Atributo singleton
+	private int ultimoIdProd = 0;
+	
 	
 	public static GestorProducto getInstance() { //metodo para obtener la instancia. GetInstance() 
 		 if (singleton == null) {
@@ -32,16 +34,14 @@ public class GestorProducto {
 
 	public void agregarProducto(Producto nProducto) {
 		
-		/*if (!nProducto.getCodProducto().matches("[A-Z]+")) {
-			System.out.println("El codigo solo debe contener caracters en mayuscula, por ejemplo ABC123");
-			return;
-		}*/
-
 		boolean existeProd = productos.stream().anyMatch(p -> p.getCodProducto().equals(nProducto.getCodProducto()));
 
-		if (existeProd)
-			return;
-		
+		if (existeProd) { 
+			System.out.println("El producto ya existe en la lista.");
+		return;
+		}
+
+		nProducto.setIdProducto(++ultimoIdProd);
 		productos.add(nProducto);
 		
 		System.out.println("Alta producto exitosa!!!");

@@ -1,7 +1,7 @@
 package models;
 
 public class Producto {
-    private int id;
+    private int idProducto;
     private String codProducto;
     private String nombre;
     private String descripcion;
@@ -10,8 +10,8 @@ public class Producto {
     private double precio;
     private String imagen;  
 
-    public Producto(int id, String codProducto ,String nombre, String descripcion, double precio, int stockProducto, String unidadMedidaProducto, String imagen) { 
-        this.id = id;
+    public Producto(int idProducto, String codProducto ,String nombre, String descripcion, double precio, int stockProducto, String unidadMedidaProducto, String imagen) { 
+        this.idProducto = idProducto;
         this.codProducto = codProducto;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -26,11 +26,15 @@ public class Producto {
 		super();
 	}
 
-	public int getId() {
-        return id;
+	public int getIdProducto() {
+        return idProducto;
     }
+	
+    public void setIdProducto(int idProducto) {
+		this.idProducto = idProducto;
+	}
 
-    public String getNombre() {
+	public String getNombre() {
         return nombre;
     }
     
@@ -87,7 +91,7 @@ public class Producto {
 
 	@Override
 	public String toString() {
-		return "Producto [id=" + id + ", codProducto=" + codProducto + ", nombre=" + nombre + ", descripcion="
+		return "Producto [idProducto=" + idProducto + ", codProducto=" + codProducto + ", nombre=" + nombre + ", descripcion="
 				+ descripcion + ", stockProducto=" + stockProducto + ", unidadMedidaProducto=" + unidadMedidaProducto
 				+ ", precio=" + precio + "]";
 	}
