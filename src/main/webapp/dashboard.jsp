@@ -5,75 +5,134 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 30px;
+        }
+        .card-header {
+            background-color: #007bff;
+            color: white;
+        }
+        .card {
+            margin-bottom: 20px;
+        }
+        .logout-btn {
+            background-color: #dc3545;
+            color: white;
+        }
+        .logout-btn:hover {
+            background-color: #c82333;
+                        color: white;
+            
+        }
+    </style>
 </head>
 <body>
-    <h2>Bienvenido</h2>
+    <div class="container">
+        <div class="text-center mb-4">
+            <h2>Bienvenido</h2>
+        </div>
 
-    <%
-        models.Usuario usuarioLogueado = (models.Usuario) session.getAttribute("usuarioLogueado");
-        models.BilleteraCliente billeteraCliente = (models.BilleteraCliente) session.getAttribute("cuentaCliente");
+        <%
+            models.Usuario usuarioLogueado = (models.Usuario) session.getAttribute("usuarioLogueado");
+            models.BilleteraCliente billeteraCliente = (models.BilleteraCliente) session.getAttribute("cuentaCliente");
 
-        
-        if (usuarioLogueado != null) {
-    %>
-        <p>Has iniciado sesión exitosamente.</p>
-        <p><strong>Datos del usuario:</strong></p>
-        <ul>
-            <li><strong>ID:</strong> <%= usuarioLogueado.getIdUsuario() %></li>
-            <li><strong>Nombre:</strong> <%= usuarioLogueado.getNombreUsuario() %></li>
-            <li><strong>Apellido:</strong> <%= usuarioLogueado.getApellidoUsuario() %></li>
-            <li><strong>Rol:</strong> <%= usuarioLogueado.getRolUsuario() %></li>
-        </ul>
-    <%
-        } else {
-    %>
-        <p><strong>Error:</strong> No se encontró un usuario logueado.</p>
-    <%
-        }
-
-        if (billeteraCliente != null) {
-    %>
-        <p><strong>Datos de la billetera:</strong></p>
-        <ul>
-            <li><strong>DNI de la billetera:</strong> <%= billeteraCliente.getNroCuenta() %></li>
-            <li><strong>Saldo:</strong> <%= billeteraCliente.getSaldoCuenta() %></li>
-        </ul>
-    <%
-        } else {
-    %>
-        <p><strong>Error:</strong> No se encontró la billetera del cliente.</p>
-    <%
-        }
-    %>
-<h3>Historial de Compras</h3>
-<%
-    List<models.Compra> historialCompras = (List<models.Compra>) session.getAttribute("historialCompras");
-
-    if (historialCompras != null && !historialCompras.isEmpty()) {
-%>
-    <div>
-        <% for (models.Compra compra : historialCompras) { %>
-            <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
-                <p><strong>Cliente DNI:</strong> <%= compra.getClienteDni() %></p>
-                <p><strong>Total:</strong> $<%= compra.getTotal() %></p>
-                <p><strong>Productos:</strong></p>
-                <ul>
-                    <% for (models.Producto producto : compra.getProductos()) { %>
-                        <li><%= producto.getNombre() %> - $<%= producto.getPrecio() %></li>
-                    <% } %>
+            if (usuarioLogueado != null) {
+        %>
+        <div class="card">
+            <div class="card-header">
+                Datos del Usuario
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    <li class="list-group-item"><strong>ID:</strong> <%= usuarioLogueado.getIdUsuario() %></li>
+                    <li class="list-group-item"><strong>Nombre:</strong> <%= usuarioLogueado.getNombreUsuario() %></li>
+                    <li class="list-group-item"><strong>Apellido:</strong> <%= usuarioLogueado.getApellidoUsuario() %></li>
+                    <li class="list-group-item"><strong>Rol:</strong> <%= usuarioLogueado.getRolUsuario() %></li>
                 </ul>
             </div>
-        <% } %>
-    </div>
-<%
-    } else {
-%>
-    <p>No hay compras registradas.</p>
-<%
-    }
-%>
+        </div>
+        <%
+            } else {
+        %>
+        <div class="alert alert-danger">
+            <strong>Error:</strong> No se encontró un usuario logueado.
+        </div>
+        <%
+            }
 
-    <a href="logoutUsuario">Cerrar sesión</a>
+            if (billeteraCliente != null) {
+        %>
+        <div class="card">
+            <div class="card-header">
+                Datos de la Billetera
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    <li class="list-group-item"><strong>DNI de la billetera:</strong> <%= billeteraCliente.getNroCuenta() %></li>
+                    <li class="list-group-item"><strong>Saldo:</strong> $<%= billeteraCliente.getSaldoCuenta() %></li>
+                </ul>
+            </div>
+        </div>
+        <%
+            } else {
+        %>
+        <div class="alert alert-danger">
+            <strong>Error:</strong> No se encontró la billetera del cliente.
+        </div>
+        <%
+            }
+        %>
+
+        <h3 class="mt-4">Historial de Compras</h3>
+        <%
+            List<models.Compra> historialCompras = (List<models.Compra>) session.getAttribute("historialCompras");
+
+            if (historialCompras != null && !historialCompras.isEmpty()) {
+        %>
+        <div class="row">
+            <% for (models.Compra compra : historialCompras) { %>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        Compra de Cliente DNI: <%= compra.getClienteDni() %>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Total:</strong> $<%= compra.getTotal() %></p>
+                        <p><strong>Productos:</strong></p>
+                        <ul class="list-group">
+                            <% for (models.Producto producto : compra.getProductos()) { %>
+                            <li class="list-group-item">
+                                <%= producto.getNombre() %> - $<%= producto.getPrecio() %>
+                            </li>
+                            <% } %>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+        </div>
+        <%
+            } else {
+        %>
+        <div class="alert alert-warning">
+            No hay compras registradas.
+        </div>
+        <%
+            }
+        %>
+
+        <div class="text-center mt-4">
+            <a href="logoutUsuario" class="btn logout-btn">Cerrar sesión</a>
+        </div>
+    </div>
+
 </body>
 </html>
