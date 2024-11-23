@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -89,7 +90,7 @@ public class BilleteraController extends HttpServlet {
         response.sendRedirect("BilleteraCliente.jsp?saldo=" + gestorBilleteraCliente.buscarCuenta(nroCuenta).getSaldoCuenta());
     }
 
-    private void postPago(HttpServletRequest request, HttpServletResponse response, String nroCuenta) throws IOException {
+    private void postPago(HttpServletRequest request, HttpServletResponse response, String nroCuenta) throws IOException, ServletException {
         System.out.println("Iniciando postPago...");
 
         double monto = Double.parseDouble(request.getParameter("monto"));
@@ -107,8 +108,11 @@ public class BilleteraController extends HttpServlet {
             response.sendRedirect("dashboard.jsp");
         } else {
             HttpSession session = request.getSession();
-            session.setAttribute("mensaje", "No se pudo procesar la compra. El carrito está vacío.");
-            response.sendRedirect("dashboard.jsp");
+            System.out.println("Pago no realizado: saldo insuficiente o carrito vacío.");
+            request.setAttribute("mensaje", "Pago no realizado: saldo insuficiente o carrito vacío.");
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("dashboard.jsp");
+            dispatcher.forward(request, response);
         }
     }
 }

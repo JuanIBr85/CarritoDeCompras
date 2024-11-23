@@ -15,6 +15,15 @@ public class GestorPago {
     }
 
     public boolean procesarPago(String nroCuenta, double monto, String clienteDni, HttpSession session) {
+        double saldoActual = gestorBilleteraCliente.buscarCuenta(nroCuenta).getSaldoCuenta();
+        System.out.println("Saldo actual: " + saldoActual);
+        System.out.println("Monto a pagar: " + monto);
+
+        if (saldoActual < monto) {
+            System.out.println("Saldo insuficiente para realizar el pago.");
+            return false;
+        }
+
         gestorBilleteraCliente.restaDineroEnCuenta(nroCuenta, monto);
         System.out.println("Dinero restado de la cuenta: " + nroCuenta);
 
@@ -43,10 +52,10 @@ public class GestorPago {
             session.setAttribute("historialCompras", historialCompras);
             System.out.println("Historial de compras guardado en la sesión.");
 
-            return true;
+            return true; 
         } else {
             System.out.println("Carrito vacío o no encontrado.");
-            return false;
+            return false; 
         }
     }
 

@@ -62,9 +62,14 @@
             </div>
             <button type="submit" class="btn btn-primary">Registrar</button>
         </form>
-        <div class="message">
-            <%= request.getAttribute("mensaje") %>
-        </div>
+         <%
+        String mensaje = (String) request.getAttribute("mensaje");
+        if (mensaje != null && !mensaje.isEmpty()) {
+    %>
+        <%= mensaje %>
+    <%
+        }
+    %>
     </div>
 </body>
 </html>

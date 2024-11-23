@@ -7,7 +7,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -128,6 +127,25 @@
         <%
             }
         %>
+
+<div class="message">
+    <%
+        String mensaje = (String) request.getAttribute("mensaje");
+        if (mensaje != null && !mensaje.trim().isEmpty()) {
+    %>
+        <div class="alert alert-danger alert-dismissible fade show" role="danger">
+            <strong>¡Atención!</strong> <%= mensaje %>
+            
+        </div>
+    <%
+        } else {
+    %>
+        
+    <%
+        }
+    %>
+</div>
+
 
         <div class="text-center mt-4">
             <a href="logoutUsuario" class="btn logout-btn">Cerrar sesión</a>
