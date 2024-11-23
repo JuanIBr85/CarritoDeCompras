@@ -1,5 +1,4 @@
  <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -31,21 +30,24 @@
             background-color: #0056b3;
             transition: background-color 0.3s ease;
         }
-        .alert-warning {
-            font-size: 1.2rem;
-            padding: 1rem;
-            background-color: #cce5ff;
-            color: #004085;
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1 class="text-center text-primary mb-4">Gestor de Productos</h1>
-
+        <% if (request.getParameter("mensaje") != null) { %>
+            <div class="alert alert-success" role="alert">
+                <%= request.getParameter("mensaje") %>
+            </div>
+        <% } else if (request.getParameter("error") != null) { %>
+            <div class="alert alert-danger" role="alert">
+                <%= request.getParameter("error") %>
+            </div>
+        <% } %>
         <div class="form-container">
             <h2 class="text-center mb-4">Alta Producto</h2>
             <form action="ProductoControllers" method="post">
+                <input type="hidden" name="accion" value="Alta">
                 <div class="mb-3">
                     <label for="CodProducto" class="form-label">Código del Producto:</label>
                     <input type="text" id="CodProducto" name="CodProducto" class="form-control" required />
@@ -69,11 +71,10 @@
                 <button type="submit" class="btn btn-custom w-100">Dar de alta</button>
             </form>
         </div>
-
         <div class="my-2 text-center">
-            <a href="ProductoControllers?action=listar" class="btn btn-outline-primary">Listado de Productos</a>
+            <a href="ProductoControllers?accion=ListaProductos" class="btn btn-outline-primary">Listado de Productos</a>
         </div>
     </div>
-
 </body>
 </html>
+
