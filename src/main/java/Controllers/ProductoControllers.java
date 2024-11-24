@@ -159,10 +159,27 @@ public class ProductoControllers extends HttpServlet {
 	}
 
 	
-	private void postBajaProducto(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
-		return;
+	private void postBajaProducto(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	    try {
+	        String codProd = request.getParameter("CodProducto");
+
+	        if (codProd == null || codProd.isEmpty()) {
+	            response.sendRedirect("AccionesProductos.jsp?mensaje=El código del producto es obligatorio para borrar.");
+	            return;
+	        }
+
+	        boolean eliminado = ProductoGestor.eliminarProducto(codProd);
+
+	        if (eliminado) {
+	            response.sendRedirect("ProductoControllers?accion=ProductosAMB&mensaje=Producto eliminado con éxito.");
+	        } else {
+	            response.sendRedirect("AccionesProductos.jsp?mensaje=No se encontró un producto con el código especificado.");
+	        }
+	    } catch (Exception e) {
+	        response.sendRedirect("AccionesProductos.jsp?mensaje=Error al eliminar producto: " + e.getMessage());
+	    }
 	}
+
 
 
 }

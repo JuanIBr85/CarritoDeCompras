@@ -116,4 +116,17 @@ public void darIngresoAlStock(String codigo , int cantidad) {
 		
 
 	}
+	public boolean eliminarProducto(String codigo) {
+	    Producto producto = buscaProductoPorCod(codigo);
+
+	    if (producto != null) {
+	        productos.remove(producto);
+	        System.out.println("Producto con código " + codigo + " eliminado exitosamente.");
+	        return true;
+	    } else {
+	        System.out.println("No se encontró el producto con código " + codigo + ".");
+	        return false;
+	    }
+	}
+
 }

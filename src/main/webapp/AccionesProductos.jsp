@@ -155,13 +155,19 @@
                         <td><%= producto.getStockProducto() %></td>
                         <td>$<%= producto.getPrecio() %></td>
                         <td>
-                            <a href="ProductoControllers?accion=Borrar&idProducto=<%= producto.getIdProducto() %>" class="btn btn-danger btn-sm">Borrar</a>
-                            <% if (producto.getStockProducto() > 0) { %>
-                               
-                            <% } else { %>
-                                <span class="badge bg-danger">Sin Stock</span>
-                            <% } %>
-                        </td>
+                          
+   <form action="ProductoControllers" method="post">
+    <input type="hidden" name="accion" value="Baja">
+    <input type="hidden" name="CodProducto" value="<%= producto.getCodProducto() %>">
+    <button type="submit">Eliminar</button>
+</form>
+
+    <% if (producto.getStockProducto() <= 0) { %>
+        <span class="badge bg-danger">Sin Stock</span>
+    <% } %>
+</td>
+
+                       
                     </tr>
                     <% } %>
                 </tbody>
