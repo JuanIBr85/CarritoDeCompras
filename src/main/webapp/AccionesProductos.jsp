@@ -123,8 +123,8 @@
                         <input type="number" step="0.01" id="PrecioProducto" name="PrecioProducto" class="form-control">
                     </div>
                     <div class="mb-3">
-                        <label for="StockProducto" class="form-label">Stock:</label>
-                        <input type="number" id="StockProducto" name="StockProducto" class="form-control">
+                        <label for="StockProductoMas" class="form-label">Ajuste Stock + :</label>
+                        <input type="number" id="StockProductoMas" name="StockProductoMas" class="form-control">
                     </div>
                     <button type="submit" class="btn btn-primary w-100">Modificar Producto</button>
                 </form>
@@ -190,11 +190,11 @@
         </div>
         <% } %>
 		
-		<!-- No borrar 
+		<!-- No borrar  
         <div class="my-2 text-center">
             <a href="ProductoControllers?accion=ListaProductos" class="btn btn-outline-primary">Listado de Productos</a>
         </div>
-         -->
+        -->
     </div>
 </body>
 </html>
