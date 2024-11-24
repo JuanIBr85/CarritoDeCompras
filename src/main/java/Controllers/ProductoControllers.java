@@ -76,6 +76,7 @@ public class ProductoControllers extends HttpServlet {
 		try {
 		String codProd = request.getParameter("CodProducto");
 		String nombreProd = request.getParameter("NombreProducto");
+		String descripcionProd = request.getParameter("DescripcionProducto");
 		String uMProd = request.getParameter("UnidadMedidaProducto");
 		String precioProd = request.getParameter("PrecioProducto");
 		double precioProducto = Double.parseDouble(precioProd);
@@ -86,6 +87,7 @@ public class ProductoControllers extends HttpServlet {
 		
 		nuevoProducto.setCodProducto(codProd);
 		nuevoProducto.setNombre(nombreProd);
+		nuevoProducto.setDescripcion(descripcionProd);
 		nuevoProducto.setUnidadMedidaProducto(uMProd);
 		nuevoProducto.setPrecio(precioProducto);
 		nuevoProducto.setStockProducto(stockProducto);
@@ -113,6 +115,7 @@ public class ProductoControllers extends HttpServlet {
 	        }
 
 	        String nombreProd = request.getParameter("NombreProducto");
+	        String descripcionProd = request.getParameter("DescripcionProducto");
 	        String uMProd = request.getParameter("UnidadMedidaProducto");
 	        String precioProd = request.getParameter("PrecioProducto");
 	        String stockProd = request.getParameter("StockProducto");
@@ -122,6 +125,10 @@ public class ProductoControllers extends HttpServlet {
 	        if (nombreProd != null && !nombreProd.isEmpty()) {
 	            productoModificado.setNombre(nombreProd);
 	        }
+	        
+	        if (descripcionProd !=null && !descripcionProd.isEmpty()) {
+				productoModificado.setDescripcion(descripcionProd);
+			}
 
 	        if (uMProd != null && !uMProd.isEmpty()) {
 	            productoModificado.setUnidadMedidaProducto(uMProd);

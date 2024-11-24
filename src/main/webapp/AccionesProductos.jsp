@@ -67,19 +67,23 @@
                     <input type="hidden" name="accion" value="Alta">
                     <div class="row">
                         <div class="col-12 mb-3">
-                            <label for="CodProducto" class="form-label">Código del Producto:</label>
+                            <label for="CodProducto" class="form-label">Código:</label>
                             <input type="text" id="CodProducto" name="CodProducto" class="form-control" required />
                         </div>
                         <div class="col-12 mb-3">
-                            <label for="NombreProducto" class="form-label">Nombre del Producto:</label>
+                            <label for="NombreProducto" class="form-label">Nombre:</label>
                             <input type="text" id="NombreProducto" name="NombreProducto" class="form-control" required />
+                        </div>
+                         <div class="col-12 mb-3">
+                            <label for="DescripcionProducto" class="form-label">Descripcion:</label>
+                            <input type="text" id="DescripcionProducto" name="DescripcionProducto" class="form-control" required />
                         </div>
                         <div class="col-12 mb-3">
                             <label for="UnidadMedidaProducto" class="form-label">Unidad de Medida:</label>
                             <input type="text" id="UnidadMedidaProducto" name="UnidadMedidaProducto" class="form-control" required />
                         </div>
                         <div class="col-12 mb-3">
-                            <label for="PrecioProducto" class="form-label">Precio del Producto:</label>
+                            <label for="PrecioProducto" class="form-label">Precio:</label>
                             <input type="number" id="PrecioProducto" name="PrecioProducto" step="0.01" class="form-control" required />
                         </div>
                         <div class="col-12 mb-3">
@@ -104,6 +108,10 @@
                     <div class="mb-3">
                         <label for="NombreProducto" class="form-label">Nombre:</label>
                         <input type="text" id="NombreProducto" name="NombreProducto" class="form-control">
+                    </div>
+                     <div class="mb-3">
+                        <label for="DescripcionProducto" class="form-label">Descripcion:</label>
+                        <input type="text" id="DescripcionProducto" name="DescripcionProducto" class="form-control">
                     </div>
                     <div class="mb-3">
                         <label for="UnidadMedidaProducto" class="form-label">Unidad de medida:</label>

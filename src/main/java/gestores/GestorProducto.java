@@ -94,6 +94,10 @@ public void darIngresoAlStock(String codigo , int cantidad) {
 				productoCreado.setNombre(ProductoModificado.getNombre());
 			}
 			
+			if (ProductoModificado.getDescripcion()!=null && !ProductoModificado.getDescripcion().isEmpty()) {
+				productoCreado.setDescripcion(ProductoModificado.getDescripcion());
+			}
+			
 			if (ProductoModificado.getUnidadMedidaProducto()!=null && !ProductoModificado.getUnidadMedidaProducto().isEmpty()) {
 				productoCreado.setUnidadMedidaProducto(ProductoModificado.getUnidadMedidaProducto());
 			}
