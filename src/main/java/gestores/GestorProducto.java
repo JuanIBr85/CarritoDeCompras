@@ -106,7 +106,7 @@ public void darIngresoAlStock(String codigo , int cantidad) {
 				productoCreado.setPrecio(ProductoModificado.getPrecio());
 			}
 			
-			if (ProductoModificado.getStockProducto()>=0) {
+			if (ProductoModificado.getStockProducto() > 0) {
 				productoCreado.setStockProducto(ProductoModificado.getStockProducto());
 			}
 			

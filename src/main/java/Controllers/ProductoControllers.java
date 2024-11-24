@@ -119,22 +119,31 @@ public class ProductoControllers extends HttpServlet {
 	        String uMProd = request.getParameter("UnidadMedidaProducto");
 	        String precioProd = request.getParameter("PrecioProducto");
 	        String stockProd = request.getParameter("StockProducto");
-
+	        
+	        
 	        Producto productoModificado = new Producto();
 
 	        if (nombreProd != null && !nombreProd.isEmpty()) {
+		        System.out.println("Nuevo Nombre del Producto: " + nombreProd);
+
 	            productoModificado.setNombre(nombreProd);
 	        }
 	        
 	        if (descripcionProd !=null && !descripcionProd.isEmpty()) {
+		        System.out.println("Nuevo Descripción del Producto: " + descripcionProd);
+
 				productoModificado.setDescripcion(descripcionProd);
 			}
 
 	        if (uMProd != null && !uMProd.isEmpty()) {
+		        System.out.println("Nuevo Unidad de Medida del Producto: " + uMProd);
+
 	            productoModificado.setUnidadMedidaProducto(uMProd);
 	        }
 
 	        if (precioProd != null && !precioProd.isEmpty()) {
+		        System.out.println("Nuevo Precio del Producto: " + precioProd);
+
 	            try {
 	                productoModificado.setPrecio(Double.parseDouble(precioProd));
 	            } catch (NumberFormatException e) {
@@ -144,6 +153,8 @@ public class ProductoControllers extends HttpServlet {
 	        }
 
 	        if (stockProd != null && !stockProd.isEmpty()) {
+		        System.out.println("Nuevo Stock del Producto: " + stockProd);
+
 	            try {
 	                productoModificado.setStockProducto(Integer.parseInt(stockProd));
 	            } catch (NumberFormatException e) {
