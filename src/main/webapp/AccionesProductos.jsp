@@ -16,6 +16,7 @@
     rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
     crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 <style>
     body {
         background-color: #f8f9fa;
@@ -164,16 +165,18 @@
                         <td>$<%= producto.getPrecio() %></td>
                         <td>
                           
-   <form action="ProductoControllers" method="post">
+<form action="ProductoControllers" method="post" class="d-inline">
     <input type="hidden" name="accion" value="Baja">
     <input type="hidden" name="CodProducto" value="<%= producto.getCodProducto() %>">
-    <button type="submit">Eliminar</button>
+    <button type="submit" class="btn btn-danger btn-sm">
+        <i class="bi bi-trash"></i> Eliminar
+    </button>
 </form>
 
-    <% if (producto.getStockProducto() <= 0) { %>
-        <span class="badge bg-danger">Sin Stock</span>
-    <% } %>
-</td>
+<% if (producto.getStockProducto() <= 0) { %>
+    <span class="badge bg-danger">Sin Stock</span>
+<% } %>
+
 
                        
                     </tr>
