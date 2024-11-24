@@ -108,6 +108,10 @@
         </div>
 
     </div>
+    
+        <div class="text-center mt-4">
+        <a href="Carrito.jsp" class="btn btn-warning">Ir al Carrito</a>
+    </div>
 
 <% 
     }
