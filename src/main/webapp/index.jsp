@@ -18,7 +18,7 @@
             </h1>
             <p class="lead text-secondary">Explora nuestros productos.</p>
             
-            <a href="Carrito" class="btn btn-primary btn-lg">
+            <a href="ProductoControllers?accion=ListaProductos" class="btn btn-primary btn-lg">
                 <i class="bi bi-box-arrow-right"></i> Ver Productos
             </a>
         </div>

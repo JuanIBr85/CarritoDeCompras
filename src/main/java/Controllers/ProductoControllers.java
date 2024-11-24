@@ -39,16 +39,18 @@ public class ProductoControllers extends HttpServlet {
 	}
 
 
-	private Object getProductosABM(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		response.sendRedirect("AccionesProductos.jsp");
-		return null;
-	}
+	private void getProductosABM(HttpServletRequest request, HttpServletResponse response) throws  ServletException,IOException {
+	    List<Producto> productos = ProductoGestor.obtenerListaProductos();
+	    HttpSession session = request.getSession();
+	    session.setAttribute("productos", productos);
+
+	    request.getRequestDispatcher("AccionesProductos.jsp").forward(request, response);
+		return;
+	 }
 
 	private void getListaProductos(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    List<Producto> productos = ProductoGestor.obtenerListaProductos();
-
 	    HttpSession session = request.getSession();
-
 	    session.setAttribute("productos", productos);
 
 	    request.getRequestDispatcher("productos.jsp").forward(request, response);
@@ -90,12 +92,12 @@ public class ProductoControllers extends HttpServlet {
 		
         this.ProductoGestor.agregarProducto(nuevoProducto);
         
-        response.sendRedirect("AccionesProductos.jsp?mensaje=Producto agregado con exito");
+        response.sendRedirect("ProductoControllers?accion=ProductosAMB");
         
 		}
 		catch (Exception e) 
 		{
-			response.sendRedirect("AccionesProductos.jsp?error=Error al agregar producto: " + e.getMessage());
+			response.sendRedirect("AccionesProductos.jsp?mensaje=Error al agregar producto: " + e.getMessage());
 		}
         
 	}
