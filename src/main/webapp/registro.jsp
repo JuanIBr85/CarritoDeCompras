@@ -56,12 +56,11 @@
                 <label for="apellidoUsuario" class="form-label">Apellido</label>
                 <input type="text" id="apellidoUsuario" name="apellidoUsuario" class="form-control" placeholder="Ingrese el apellido" required>
             </div>
-            <!--  
+             
             <div class="mb-3">
-                <label for="saldoInicial" class="form-label">Saldo Inicial</label>
-                <input type="number" id="saldoInicial" name="saldoInicial" class="form-control" value="0.0" readonly>
+                <input hidden type="number" id="saldoInicial" name="saldoInicial" class="form-control" value="0.0" readonly>
             </div>
-            -->
+          
             <button type="submit" class="btn btn-primary">Registrar</button>
         </form>
          <%
