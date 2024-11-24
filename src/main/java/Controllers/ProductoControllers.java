@@ -104,31 +104,60 @@ public class ProductoControllers extends HttpServlet {
 			
 
 	private void postModificacionProducto(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	    try {
+	        String codProd = request.getParameter("CodProducto");
 
-		 String accion = request.getParameter("accion");
+	        if (codProd == null || codProd.isEmpty()) {
+	            response.sendRedirect("AccionesProductos.jsp?mensaje=El código del producto es obligatorio.");
+	            return;
+	        }
 
-		    if ("Modificacion".equals(accion)) {
-		        String codProd = request.getParameter("CodProducto");
-		        String nombreProd = request.getParameter("NombreProducto");
-		        String unidadMedidaProd = request.getParameter("UnidadMedidaProducto");
-		        double precioProd = Double.parseDouble(request.getParameter("PrecioProducto"));
-		        int stockProd = Integer.parseInt(request.getParameter("StockProducto"));
-		        
-		        Producto productoModificado = new Producto();
-		        productoModificado.setNombre(nombreProd);
-		        productoModificado.setUnidadMedidaProducto(unidadMedidaProd);
-		        productoModificado.setPrecio(precioProd);
-		        productoModificado.setStockProducto(stockProd);
-		        
-		        boolean resultado = GestorProducto.getInstance().modificarProducto(codProd, productoModificado);
-		        
-		        if (resultado) {
-		            response.sendRedirect("AccionesProductos.jsp?mensaje=Producto actualizado con éxito");
-		        } else {
-		            response.sendRedirect("AccionesProductos.jsp?error=No se pudo actualizar el producto");
-		        }
-		    }
+	        String nombreProd = request.getParameter("NombreProducto");
+	        String uMProd = request.getParameter("UnidadMedidaProducto");
+	        String precioProd = request.getParameter("PrecioProducto");
+	        String stockProd = request.getParameter("StockProducto");
+
+	        Producto productoModificado = new Producto();
+
+	        if (nombreProd != null && !nombreProd.isEmpty()) {
+	            productoModificado.setNombre(nombreProd);
+	        }
+
+	        if (uMProd != null && !uMProd.isEmpty()) {
+	            productoModificado.setUnidadMedidaProducto(uMProd);
+	        }
+
+	        if (precioProd != null && !precioProd.isEmpty()) {
+	            try {
+	                productoModificado.setPrecio(Double.parseDouble(precioProd));
+	            } catch (NumberFormatException e) {
+	                response.sendRedirect("AccionesProductos.jsp?mensaje=El precio debe ser un número válido.");
+	                return;
+	            }
+	        }
+
+	        if (stockProd != null && !stockProd.isEmpty()) {
+	            try {
+	                productoModificado.setStockProducto(Integer.parseInt(stockProd));
+	            } catch (NumberFormatException e) {
+	                response.sendRedirect("AccionesProductos.jsp?mensaje=El stock debe ser un número válido.");
+	                return;
+	            }
+	        }
+
+	        boolean modificado = ProductoGestor.modificarProducto(codProd, productoModificado);
+
+	        if (modificado) {
+	            response.sendRedirect("ProductoControllers?accion=ProductosAMB&mensaje=Producto modificado exitosamente.");
+	        } else {
+	            response.sendRedirect("AccionesProductos.jsp?mensaje=No se encontró un producto con el código especificado.");
+	        }
+
+	    } catch (Exception e) {
+	        response.sendRedirect("AccionesProductos.jsp?mensaje=Error al modificar producto: " + e.getMessage());
+	    }
 	}
+
 	
 	private void postBajaProducto(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub

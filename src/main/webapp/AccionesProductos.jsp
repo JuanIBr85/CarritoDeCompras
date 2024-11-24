@@ -47,78 +47,86 @@
 </style>
 </head>
 <body>
-    <div class="container">
-        <h1 class="text-center text-primary mb-4">Gestor de Productos</h1>
-        <%
-        if (request.getParameter("mensaje") != null) {
-        %>
-        <div class="alert alert-success" role="alert">
-            <%=request.getParameter("mensaje")%>
-        </div>
-        <%
-        } else if (request.getParameter("error") != null) {
-        %>
-        <div class="alert alert-danger" role="alert">
-            <%=request.getParameter("error")%>
-        </div>
-        <%
-        }
-        %>
+  <div class="container mt-5">
+    <h1 class="text-center text-primary mb-4">Gestor de Productos</h1>
+    <% if (request.getParameter("mensaje") != null) { %>
+    <div class="alert alert-success" role="alert">
+        <%=request.getParameter("mensaje")%>
+    </div>
+    <% } else if (request.getParameter("error") != null) { %>
+    <div class="alert alert-danger" role="alert">
+        <%=request.getParameter("error")%>
+    </div>
+    <% } %>
 
-        <div class="form-container">
-            <h2 class="text-center mb-4">Alta Producto</h2>
-            <form action="ProductoControllers" method="post">
-                <input type="hidden" name="accion" value="Alta">
-                <div class="row">
-                    <div class="col-6 mb-3">
-                        <label for="CodProducto" class="form-label">Código del Producto:</label>
-                        <input type="text" id="CodProducto" name="CodProducto" class="form-control" required />
+    <div class="row">
+        <div class="col-6">
+            <div class="form-container p-4 shadow rounded">
+                <h2 class="text-center mb-4">Alta Producto</h2>
+                <form action="ProductoControllers" method="post">
+                    <input type="hidden" name="accion" value="Alta">
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <label for="CodProducto" class="form-label">Código del Producto:</label>
+                            <input type="text" id="CodProducto" name="CodProducto" class="form-control" required />
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label for="NombreProducto" class="form-label">Nombre del Producto:</label>
+                            <input type="text" id="NombreProducto" name="NombreProducto" class="form-control" required />
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label for="UnidadMedidaProducto" class="form-label">Unidad de Medida:</label>
+                            <input type="text" id="UnidadMedidaProducto" name="UnidadMedidaProducto" class="form-control" required />
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label for="PrecioProducto" class="form-label">Precio del Producto:</label>
+                            <input type="number" id="PrecioProducto" name="PrecioProducto" step="0.01" class="form-control" required />
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label for="StockProducto" class="form-label">Stock Inicial:</label>
+                            <input type="number" id="StockProducto" name="StockProducto" class="form-control" required />
+                        </div>
                     </div>
-                    <div class="col-6 mb-3">
-                        <label for="NombreProducto" class="form-label">Nombre del Producto:</label>
-                        <input type="text" id="NombreProducto" name="NombreProducto" class="form-control" required />
-                    </div>
-                    <div class="col-6 mb-3">
-                        <label for="UnidadMedidaProducto" class="form-label">Unidad de Medida:</label>
-                        <input type="text" id="UnidadMedidaProducto" name="UnidadMedidaProducto" class="form-control" required />
-                    </div>
-                    <div class="col-6 mb-3">
-                        <label for="PrecioProducto" class="form-label">Precio del Producto:</label>
-                        <input type="number" id="PrecioProducto" name="PrecioProducto" step="0.01" class="form-control" required />
-                    </div>
-                    <div class="col-6 mb-3">
-                        <label for="StockProducto" class="form-label">Stock Inicial:</label>
-                        <input type="number" id="StockProducto" name="StockProducto" class="form-control" required />
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-custom w-100">Dar de alta</button>
-            </form>
+                    <button type="submit" class="btn btn-custom w-100">Dar de alta</button>
+                </form>
+            </div>
         </div>
 
-        <div class="form-container mt-5">
-            <h2 class="text-center mb-4">Modificar Producto</h2>
-            <form action="ProductoControllers" method="post">
-                <input type="hidden" name="accion" value="Modificacion">
-                <div class="row">
-                    <div class="col-6 mb-3">
-                        <label for="CodProducto" class="form-label">Código del Producto:</label>
-                        <input type="text" id="CodProducto" name="CodProducto" class="form-control" required />
+        <div class="col-6">
+            <div class="form-container p-4 shadow rounded">
+                <h2 class="text-center mb-4">Modificar Producto</h2>
+                <form action="ProductoControllers" method="POST">
+                    <input type="hidden" name="accion" value="Modificacion">
+                    <div class="mb-3">
+                        <label for="CodProducto" class="form-label">Código:</label>
+                        <input type="text" id="CodProducto" name="CodProducto" class="form-control" required>
                     </div>
-                    <div class="col-6 mb-3">
-                        <label for="NombreProducto" class="form-label">Nombre del Producto:</label>
-                        <input type="text" id="NombreProducto" name="NombreProducto" class="form-control" />
+                    <div class="mb-3">
+                        <label for="NombreProducto" class="form-label">Nombre:</label>
+                        <input type="text" id="NombreProducto" name="NombreProducto" class="form-control">
                     </div>
-                    <div class="col-6 mb-3">
-                        <label for="UnidadMedidaProducto" class="form-label">Unidad de Medida:</label>
-                        <input type="text" id="UnidadMedidaProducto" name="UnidadMedidaProducto" class="form-control" />
+                    <div class="mb-3">
+                        <label for="UnidadMedidaProducto" class="form-label">Unidad de medida:</label>
+                        <input type="text" id="UnidadMedidaProducto" name="UnidadMedidaProducto" class="form-control">
                     </div>
-                    <div class="col-6 mb-3">
-                        <label for="PrecioProducto" class="form-label">Precio del Producto:</label>
-                        <input type="number" id="PrecioProducto" name="PrecioProducto" step="0.01" class="form-control" />
+                    <div class="mb-3">
+                        <label for="PrecioProducto" class="form-label">Precio:</label>
+                        <input type="number" step="0.01" id="PrecioProducto" name="PrecioProducto" class="form-control">
                     </div>
-                </div>
-                <button type="submit" class="btn btn-custom w-100">Actualizar Producto</button>
-            </form>
+                    <div class="mb-3">
+                        <label for="StockProducto" class="form-label">Stock:</label>
+                        <input type="number" id="StockProducto" name="StockProducto" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Modificar Producto</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+
         </div>
 
         <% 
@@ -147,7 +155,7 @@
                         <td><%= producto.getStockProducto() %></td>
                         <td>$<%= producto.getPrecio() %></td>
                         <td>
-                            <a href="ProductoControllers?accion=Modificar&idProducto=<%= producto.getIdProducto() %>" class="btn btn-warning btn-sm">Editar</a>
+                            <a href="ProductoControllers?accion=Borrar&idProducto=<%= producto.getIdProducto() %>" class="btn btn-danger btn-sm">Borrar</a>
                             <% if (producto.getStockProducto() > 0) { %>
                                
                             <% } else { %>
