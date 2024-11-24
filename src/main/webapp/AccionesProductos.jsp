@@ -143,7 +143,7 @@
         %>
 
         <% if (productos != null && !productos.isEmpty()) { %>
-        <div class="table-responsive mt-5">
+        <div class="table-responsive m-5 mt-5">
             <table class="table table-bordered">
                 <thead class="table-dark">
                     <tr>
@@ -189,10 +189,12 @@
             No hay productos en stock.
         </div>
         <% } %>
-
+		
+		<!-- No borrar 
         <div class="my-2 text-center">
             <a href="ProductoControllers?accion=ListaProductos" class="btn btn-outline-primary">Listado de Productos</a>
         </div>
+         -->
     </div>
 </body>
 </html>
