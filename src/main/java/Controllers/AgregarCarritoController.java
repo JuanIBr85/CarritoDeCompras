@@ -20,7 +20,9 @@ public class AgregarCarritoController extends HttpServlet {
     @SuppressWarnings("unchecked")
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String codProd = request.getParameter("CodProducto");
+       
+    	String idProd = request.getParameter("IdProducto");
+    	String codProd = request.getParameter("CodProducto");
         String nombreProd = request.getParameter("NombreProducto");
         String precioProd = request.getParameter("PrecioProducto");
         String cantidadProd = request.getParameter("Cantidad");
@@ -29,8 +31,11 @@ public class AgregarCarritoController extends HttpServlet {
         String stockProd = request.getParameter("StockProducto");
         int stockProducto = Integer.parseInt(stockProd);
         int cantidad = Integer.parseInt(cantidadProd);
+        int idProducto = Integer.parseInt(idProd);
 
         Producto productoCarrito = new Producto();
+        
+        productoCarrito.setIdProducto(idProducto);
         productoCarrito.setCodProducto(codProd);
         productoCarrito.setNombre(nombreProd);
         productoCarrito.setPrecio(precioProducto);

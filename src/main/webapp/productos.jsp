@@ -82,6 +82,8 @@
         <div class="card" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title"><%= producto.getNombre() %></h5>
+                                <p class="card-text"><strong>ID:</strong> <%= producto.getIdProducto() %></p>
+               
                 <p class="card-text"><strong>Código:</strong> <%= producto.getCodProducto() %></p>
                 <p class="card-text"><strong>Descripción:</strong> <%= producto.getDescripcion() != null ? producto.getDescripcion() : "No disponible" %></p>
                 <p class="card-text"><strong>Stock:</strong> <%= producto.getStockProducto() %></p>
@@ -90,6 +92,8 @@
                 
                 <% if (producto.getStockProducto() > 0) { %>
                     <form action="AgregarCarritoController" method="post">
+                                            <input type="hidden" name="IdProducto" value="<%= producto.getIdProducto() %>">
+             
                         <input type="hidden" name="CodProducto" value="<%= producto.getCodProducto() %>">
                         <input type="hidden" name="NombreProducto" value="<%= producto.getNombre() %>">
                         <input type="hidden" name="PrecioProducto" value="<%= producto.getPrecio() %>">
@@ -110,9 +114,9 @@
             </div>
         </div>
     <% } } else { %>
-        <div class="col-12">
+        <div class="col-12 m-1">
             <div class="alert alert-warning text-center" role="alert">
-                No hay productos disponibles.
+                No hay productos en stock.
             </div>
         </div>
     <% } %>
@@ -123,7 +127,7 @@
     String mensaje = (String) request.getAttribute("mensaje");
     if (mensaje != null) { 
 %>
-    <div class="alert alert-warning text-center" role="alert">
+    <div class="alert alert-warning text-center m-3" role="alert">
         <%= mensaje %>
     </div>
 <% 

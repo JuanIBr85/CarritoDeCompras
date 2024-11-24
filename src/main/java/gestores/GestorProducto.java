@@ -45,7 +45,7 @@ public class GestorProducto {
 		nProducto.setIdProducto(++ultimoIdProd);
 		productos.add(nProducto);
 		
-		System.out.println("Alta producto exitosa!!!");
+		System.out.println("Alta producto exitosa. ID: " + ultimoIdProd);
 
 	}
 	

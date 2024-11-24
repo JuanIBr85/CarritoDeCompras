@@ -64,7 +64,8 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th scope="col">Codigo</th>
+                                                    <th scope="col">ID</th>
+                                                   <th scope="col">Codigo</th>
                             <th scope="col">Producto</th>
                             <th scope="col">Precio</th>
                             <th scope="col">Cantidad</th>
@@ -81,6 +82,7 @@
                                 total += subtotal;
                         %>
                         <tr>
+                         <td><%= producto.getIdProducto() %></td>
                             <td><%= producto.getCodProducto() %></td>
                         
                             <td><%= producto.getNombre() %></td>

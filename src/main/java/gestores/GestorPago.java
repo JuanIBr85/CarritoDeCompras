@@ -49,9 +49,13 @@ public class GestorPago {
             Compra.agregarCompra(nuevaCompra);
             System.out.println("Nueva compra agregada: " + nuevaCompra);
 
+            //session.removeAttribute("carrito");
+           
+            //algunos de estos 3 tiene que funcionar
+            session.setAttribute("carrito", null);
+            carrito = null;
             session.removeAttribute("carrito");
-            System.out.println("Carrito vaciado después de la compra.");
-
+            
             List<Compra> historialCompras = Compra.obtenerHistorialCompras();
             session.setAttribute("historialCompras", historialCompras);
             System.out.println("Historial de compras guardado en la sesión.");
