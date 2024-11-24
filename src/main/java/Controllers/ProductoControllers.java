@@ -118,7 +118,7 @@ public class ProductoControllers extends HttpServlet {
 	        String descripcionProd = request.getParameter("DescripcionProducto");
 	        String uMProd = request.getParameter("UnidadMedidaProducto");
 	        String precioProd = request.getParameter("PrecioProducto");
-	        String stockProdMas = request.getParameter("StockProductoMas");
+	        String stockProd = request.getParameter("AjusteStockProducto");
 	        
 	        
 	        Producto productoModificado = new Producto();
@@ -152,11 +152,11 @@ public class ProductoControllers extends HttpServlet {
 	            }
 	        }
 
-	        if (stockProdMas != null && !stockProdMas.isEmpty()) {
-		        System.out.println("Nuevo Stock del Producto: " + stockProdMas);
+	        if (stockProd != null && !stockProd.isEmpty()) {
+		        System.out.println("Nuevo Stock del Producto: " + stockProd);
 
 	            try {
-	                productoModificado.setStockProducto(Integer.parseInt(stockProdMas));
+	                productoModificado.setStockProducto(Integer.parseInt(stockProd));
 	            } catch (NumberFormatException e) {
 	                response.sendRedirect("AccionesProductos.jsp?mensaje=El stock debe ser un número válido.");
 	                return;

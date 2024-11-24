@@ -123,8 +123,8 @@
                         <input type="number" step="0.01" id="PrecioProducto" name="PrecioProducto" class="form-control">
                     </div>
                     <div class="mb-3">
-                        <label for="StockProductoMas" class="form-label">Ajuste Stock + :</label>
-                        <input type="number" id="StockProductoMas" name="StockProductoMas" class="form-control">
+                        <label for="AjusteStockProducto" class="form-label">Ajuste Stock +/- :</label>
+                        <input type="number" id="AjusteStockProducto" name="AjusteStockProducto" class="form-control">
                     </div>
                     <button type="submit" class="btn btn-primary w-100">Modificar Producto</button>
                 </form>
