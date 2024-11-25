@@ -149,7 +149,7 @@
 		<div class="d-flex justify-content-center mt-4 gap-2">
    			 <a href="BilleteraCliente.jsp" class="btn btn-primary">Ir a Billetera</a>
    			<a href="productos.jsp" class="btn btn-primary">Ver Productos</a>
-    			<a href="logoutUsuario" class="btn logout-btn">Cerrar sesión</a>
+    			<a href="logout" class="btn logout-btn">Cerrar sesión</a>
 		</div>
     </div>
 
