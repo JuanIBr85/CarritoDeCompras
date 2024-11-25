@@ -38,6 +38,7 @@
         .btn-custom:hover {
             background-color: #0056b3;
             transition: background-color 0.3s ease;
+            color: white;
         }
 
         .card-header {
@@ -199,7 +200,7 @@
 %>
 
 <% if (productos != null && !productos.isEmpty()) { %>
-    <div class="table-responsive ">
+    <div>
         <table class="table table-bordered table-striped table-hover">
             <thead class="table-dark">
                 <tr>

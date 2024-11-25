@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import gestores.GestorProducto;
 import models.Producto;
+import models.Usuario;
 
 
 @WebServlet("/ProductoControllers")
@@ -59,6 +60,14 @@ public class ProductoControllers extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		 HttpSession session = request.getSession();
+		    Usuario usuarioLogueado = (Usuario) session.getAttribute("usuarioLogueado");
+
+		    if (usuarioLogueado == null || !"Empleado".equals(usuarioLogueado.getRolUsuario())) {
+		        response.sendRedirect("index.jsp");
+		        return;
+		    }
+		    
         String accion = request.getParameter("accion");
         accion = Optional.ofNullable(accion).orElse("ListaProductos");
 
