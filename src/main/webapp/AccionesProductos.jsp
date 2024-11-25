@@ -88,7 +88,7 @@
 %>
     <div class="card">
         <div class="card-header">
-            Datos del Usuario
+            Datos del Empleado
         </div>
         <div class="card-body">
             <ul class="list-group">
@@ -111,8 +111,11 @@
 
 <div class="row">
     <div class="col-6">
-        <div class="form-container p-4 shadow rounded">
-            <h2 class="text-center mb-4">Alta Producto</h2>
+        <div class="card ">
+           <div class="card-header">
+            Alta de Producto
+           </div>
+         <div class="card-body">
             <form action="ProductoControllers" method="post">
                 <input type="hidden" name="accion" value="Alta">
                 <div class="row">
@@ -143,12 +146,17 @@
                 </div>
                 <button type="submit" class="btn btn-custom w-100">Dar de alta</button>
             </form>
+             </div>
         </div>
     </div>
 
     <div class="col-6">
-        <div class="form-container p-4 shadow rounded">
-            <h2 class="text-center mb-4">Modificar Producto</h2>
+        <div class="card ">
+             <div class="card-header">
+           Modificar Producto
+           </div>
+             <div class="card-body">
+           
             <form action="ProductoControllers" method="POST">
                 <input type="hidden" name="accion" value="Modificacion">
                 <div class="mb-3">
@@ -172,16 +180,73 @@
                     <input type="number" id="PrecioProducto" name="PrecioProducto" step="0.01" class="form-control">
                 </div>
                 <div class="mb-3">
-                    <label for="StockProducto" class="form-label">Stock:</label>
-                    <input type="number" id="StockProducto" name="StockProducto" class="form-control">
+                    <label for="AjusteStockProducto" class="form-label">Stock:</label>
+                    <input type="number" id="AjusteStockProducto" name="AjusteStockProducto" class="form-control">
                 </div>
                 <button type="submit" class="btn btn-custom w-100">Modificar Producto</button>
             </form>
+               </div>
         </div>
     </div>
+    
+        <h2 class="text-center text-secondary mb-4">Lista de Productos</h2>
+    
+<%@ page import="models.Producto" %>
+<%@ page import="java.util.List" %>
+
+<%
+    List<Producto> productos = (List<Producto>) session.getAttribute("productos");
+%>
+
+<% if (productos != null && !productos.isEmpty()) { %>
+    <div class="table-responsive ">
+        <table class="table table-bordered table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>Stock</th>
+                    <th>Precio</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (Producto producto : productos) { %>
+                <tr class="<%= producto.getStockProducto() <= 0 ? "table-danger" : "" %>">
+                    <td><%= producto.getIdProducto() %></td>
+                    <td><%= producto.getCodProducto() %></td>
+                    <td><%= producto.getNombre() %></td>
+                    <td>
+                        <%= producto.getStockProducto() %>
+                        <% if (producto.getStockProducto() <= 0) { %>
+                        <span class="badge bg-danger">Sin Stock</span>
+                        <% } %>
+                    </td>
+                    <td>$<%= producto.getPrecio() %></td>
+                    <td>
+                        <form action="ProductoControllers" method="post" class="d-inline">
+                            <input type="hidden" name="accion" value="Baja">
+                            <input type="hidden" name="CodProducto" value="<%= producto.getCodProducto() %>">
+                            <button type="submit" class="btn btn-danger btn-sm">
+                                <i class="bi bi-trash"></i> Eliminar
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+<% } else { %>
+    <div class="alert alert-warning text-center" role="alert">
+        No hay productos en stock.
+    </div>
+<% } %>
+
 </div>
 
-<div class="d-flex justify-content-center mt-4 gap-2">
+<div class="d-flex justify-content-center m-4 gap-2">
     <a href="logout" class="btn logout-btn">Cerrar sesión</a>
 </div>
 

@@ -68,16 +68,19 @@
 
         <div class="text-end mb-4">
             <% if (clienteLogueado != null) { %>
-                <p>Bienvenido, <strong><%= clienteLogueado.getNombreUsuario() %></strong></p>
+<div class="d-flex justify-content-end align-items-center">
+    <p class="mb-0">Bienvenido, <strong><%= clienteLogueado.getNombreUsuario() %></strong></p>
+    <a href="dashboard.jsp" class="btn btn-primary ms-2">Mi Perfil</a>
+</div>
+
+               
+                
             <% } else { %>
                 <a href="login.jsp" class="btn btn-custom">Iniciar Sesión</a>
+                
             <% } %>
         </div>
         
-      		  <div class="text-start mb-4">
-   				 <a href="dashboard.jsp" class="btn btn-primary">Mi Perfil</a>
-			</div>
-
         <h1 class="text-center mb-4 text-primary">Lista de Productos</h1>
 
        <div class="d-flex flex-wrap justify-content-start gap-4">

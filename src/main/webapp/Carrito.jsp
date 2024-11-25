@@ -131,13 +131,12 @@
                 <%
                 }
                 %>
-            </div>
-            
-            	<div class="d-flex justify-content-center mt-4 gap-2">
+            </div>         	
+        </div>
+        <div class="d-flex justify-content-center mt-4 gap-2">
    					 <a href="BilleteraCliente.jsp" class="btn btn-custom">Ir a Billetera</a>
    					 <a href="productos.jsp" class="btn btn-custom">Ver Productos</a>
 				</div>
-        </div>
     </div>
 
 </body>
