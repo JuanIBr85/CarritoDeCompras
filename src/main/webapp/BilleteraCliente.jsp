@@ -1,11 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GestiÃ³n de Dinero del Cliente</title>
+    <title>Gestión de Dinero del Cliente</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -16,17 +14,50 @@
             margin-top: 50px;
         }
         .section-title {
+            margin-bottom: 40px;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #007bff;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .card-header {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+        }
+        .btn-primary, .btn-success, .btn {
+            width: 100%;
+            font-size: 1rem;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .btn-success:hover {
+            background-color: #218838;
+        }
+        .form-container h3 {
             margin-bottom: 20px;
+            color: #6c757d;
+            font-weight: bold;
         }
-        .alert {
+        .alert-danger {
             margin-top: 20px;
+            border-radius: 5px;
         }
-        .form-container {
-            margin-top: 30px;
+        .gap-4 {
+            gap: 1.5rem;
         }
-        h3 {
-            margin-bottom: 15px;
-        }
+        .btn-sm {
+        padding: 5px 10px;
+        font-size: 0.875rem;
+        width: 9rem;
+    }
     </style>
 </head>
 <body>
@@ -41,11 +72,11 @@
 %>
 
     <div class="container">
-        <h2 class="text-center section-title">GestiÃ³n de Dinero del Cliente</h2>
+        <h2 class="text-center section-title">Gestión de Dinero del Cliente</h2>
 
         <div class="card mb-4">
             <div class="card-header">
-                <h3>InformaciÃ³n del Usuario</h3>
+                Información del Cliente
             </div>
             <div class="card-body">
                 <ul>
@@ -59,58 +90,52 @@
         <% if (billeteraCliente != null) { %>
         <div class="card mb-4">
             <div class="card-header">
-                <h3>InformaciÃ³n de la Billetera</h3>
+                Información de la Billetera
             </div>
             <div class="card-body">
                 <ul>
-                    <li><strong>Saldo:</strong> <%= billeteraCliente.getSaldoCuenta() %></li>
+                    <li><strong>Saldo:</strong> $<%= billeteraCliente.getSaldoCuenta() %></li>
                 </ul>
             </div>
         </div>
         <% } else { %>
         <div class="alert alert-danger">
-            <strong>Error:</strong> No se encontrÃ³ informaciÃ³n de la billetera.
+            <strong>Error:</strong> No se encontró información de la billetera.
         </div>
         <% } %>
 
-        <div class="form-container">
-            <form action="BilleteraController" method="post" class="mb-4">
-                <h3>Ingresar Dinero</h3>
-                <input type="hidden" name="accion" value="deposito">
-                <div class="form-group">
-                    <input type="number" name="monto" class="form-control" placeholder="Monto a ingresar" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Confirmar DepÃ³sito</button>
-            </form>
+        <div class="d-flex form-container gap-4 justify-content-center">
+            <div class="col-md-5 d-flex flex-column card p-4">
+                <form action="BilleteraController" method="post" class="h-100 d-flex flex-column">
+                    <h3>Ingresar Dinero</h3>
+                    <input type="hidden" name="accion" value="deposito">
+                    <div class="form-group">
+                        <input type="number" name="monto" class="form-control" placeholder="Monto a ingresar" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-auto">Confirmar Depósito</button>
+                </form>
+            </div>
 
-            <form action="BilleteraController" method="post" class="mb-4">
-                <h3>Transferencia a Otro Cliente</h3>
-                <input type="hidden" name="accion" value="transferencia">
-                <div class="form-group">
-                    <input type="text" name="clienteDestino" class="form-control" placeholder="DNI destinatario" required>
-                </div>
-                <div class="form-group">
-                    <input type="number" name="monto" class="form-control" placeholder="Monto a transferir" required>
-                </div>
-                <button type="submit" class="btn btn-success">Transferir Monto</button>
-            </form>
-
-            <!-- 
-            <form action="BilleteraController" method="post">
-                <h3>Realizar Pago</h3>
-                <input type="hidden" name="accion" value="pago">
-                <div class="form-group">
-                    <input type="number" name="monto" class="form-control" placeholder="Monto a pagar" required>
-                </div>
-                <button type="submit" class="btn btn-danger">Realizar Pago</button>
-            </form>
-            -->
+            <div class="col-md-5 d-flex flex-column card p-4">
+                <form action="BilleteraController" method="post" class="h-100 d-flex flex-column">
+                    <h3>Transferencia a Otro Cliente</h3>
+                    <input type="hidden" name="accion" value="transferencia">
+                    <div class="form-group">
+                        <input type="text" name="clienteDestino" class="form-control" placeholder="DNI destinatario" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" name="monto" class="form-control" placeholder="Monto a transferir" required>
+                    </div>
+                    <button type="submit" class="btn btn-success mt-auto">Transferir Monto</button>
+                </form>
+            </div>
         </div>
 
-    </div>
-    
-        <div class="text-center mt-4">
-        <a href="Carrito.jsp" class="btn btn-warning">Ir al Carrito</a>
+       <div class="d-flex justify-content-center my-4 gap-4">
+    <a href="ProductoControllers?accion=ListaProductos" class="btn btn-info btn-sm">Ver Productos</a>
+    <a href="logout" class="btn btn-danger btn-sm">Cerrar Sesión</a>
+</div>
+
     </div>
 
 <% 
@@ -121,14 +146,15 @@
     String mensaje = (String) session.getAttribute("mensaje");
     if (mensaje != null) {
 %>
-        <div class="alert alert-danger text-center">
-            <%= mensaje %>
+        <div class="container">
+            <div class="alert alert-danger text-center">
+                <%= mensaje %>
+            </div>
         </div>
 <%
         session.removeAttribute("mensaje");
     }
 %>
-
 
 </body>
 </html>
