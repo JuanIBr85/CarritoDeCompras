@@ -66,6 +66,7 @@
 <%
     models.Usuario usuarioLogueado = (models.Usuario) session.getAttribute("usuarioLogueado");
 
+	//intento de proteger Acciones Productos.jsp de quien no sea empleado
     if (usuarioLogueado == null || !"Empleado".equals(usuarioLogueado.getRolUsuario())) {
         response.sendRedirect("index.jsp");
         return;

@@ -63,6 +63,7 @@ public class ProductoControllers extends HttpServlet {
 		 HttpSession session = request.getSession();
 		    Usuario usuarioLogueado = (Usuario) session.getAttribute("usuarioLogueado");
 
+		    //intento de proteger el alta,baja y modifiación de quien no sea empleado
 		    if (usuarioLogueado == null || !"Empleado".equals(usuarioLogueado.getRolUsuario())) {
 		        response.sendRedirect("index.jsp");
 		        return;
