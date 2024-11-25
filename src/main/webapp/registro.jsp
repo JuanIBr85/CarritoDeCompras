@@ -38,11 +38,10 @@
 </head>
 <body>
     <div class="register-container">
-        <h2 class="text-center mb-4">Registrar Usuario</h2>
+        <h2 class="text-center mb-4">Registrar Cliente</h2>
         <form action="registrarUsuario" method="post">
             <div class="mb-3">
-                <label for="tipoUsuario" class="form-label">Tipo de Usuario</label>
-                <select id="tipoUsuario" name="tipoUsuario" class="form-select" required>
+                <select id="tipoUsuario" name="tipoUsuario" class="form-select" hidden required>
                     <option value="cliente">Cliente</option>
                 </select>
             </div>
