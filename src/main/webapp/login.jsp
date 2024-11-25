@@ -29,23 +29,47 @@
         .btn-primary {
             width: 100%;
         }
+        .btn-secondary {
+            width: 100%;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <h2 class="text-center mb-4">Inicio de Sesión</h2>
-        <form action="loginUsuario" method="post">
-            <div class="mb-3">
-                <label for="dniCliente" class="form-label">DNI Usuario</label>
-                <input type="number" id="dniCliente" name="dniCliente" class="form-control" placeholder="Ingrese su DNI" required>
-            </div>
-            <div class="mb-3">
-                <label for="claveUsuario" class="form-label">Clave</label>
-                <input type="password" id="claveUsuario" name="claveUsuario" class="form-control" placeholder="Ingrese su clave" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Login</button>
-        </form>
+    <% if (request.getParameter("mensaje") != null) { %>
+    <div class="alert alert-success" role="alert">
+        <%=request.getParameter("mensaje")%>
     </div>
- 
+    <% } %>
+    	
+    <div class="login-container">
+    <h2 class="text-center mb-4">Inicio de Sesión</h2>
+    <form action="loginUsuario" method="post">
+        <div class="mb-3">
+            <label for="tipoUsuario" class="form-label">Tipo de Usuario</label>
+            <select id="tipoUsuario" name="tipoUsuario" class="form-control" required>
+                <option value="cliente">Cliente</option>
+                <option value="empleado">Empleado</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="nroUsuario" class="form-label">DNI/Legajo Usuario</label>
+            <input type="number" id="nroUsuario" name="nroUsuario" class="form-control" placeholder="Ingrese su DNI" required>
+        </div>
+        <div class="mb-3">
+            <label for="claveUsuario" class="form-label">Clave</label>
+            <input type="password" id="claveUsuario" name="claveUsuario" class="form-control" placeholder="Ingrese su clave" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+    <div class="d-flex ">
+    <a href="registro.jsp" class="btn btn-secondary mt-2 mx-1">Quiero Registrarme (Cliente)</a>
+    <a href="registro_empleado.jsp" class="btn btn-secondary mt-2 mx-1">Quiero Registrarme (Empleado)</a>
+    
+    </div>
+   
+    
+</div>
+
 </body>
 </html>

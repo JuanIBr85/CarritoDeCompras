@@ -48,7 +48,18 @@
 </style>
 </head>
 <body>
-  <div class="container mt-5">
+ 
+<%
+    models.Usuario usuarioLogueado = (models.Usuario) session.getAttribute("usuarioLogueado");
+
+    if (usuarioLogueado == null || !"Empleado".equals(usuarioLogueado.getRolUsuario())) {
+        response.sendRedirect("index.jsp");
+       
+        return; 
+    }
+%>
+
+<div class="container mt-5">
     <h1 class="text-center text-primary mb-4">Gestor de Productos</h1>
     <% if (request.getParameter("mensaje") != null) { %>
     <div class="alert alert-success" role="alert">
@@ -59,6 +70,33 @@
         <%=request.getParameter("error")%>
     </div>
     <% } %>
+
+<%
+    if (usuarioLogueado != null) {
+%>
+<div class="card">
+    <div class="card-header">
+        Datos del Usuario
+    </div>
+    <div class="card-body">
+        <ul class="list-group">
+            <li class="list-group-item"><strong>ID:</strong> <%= usuarioLogueado.getIdUsuario() %></li>
+            <li class="list-group-item"><strong>Nombre:</strong> <%= usuarioLogueado.getNombreUsuario() %></li>
+            <li class="list-group-item"><strong>Apellido:</strong> <%= usuarioLogueado.getApellidoUsuario() %></li>
+            <li class="list-group-item"><strong>Rol:</strong> <%= usuarioLogueado.getRolUsuario() %></li>
+        </ul>
+    </div>
+</div>
+<%
+    } else {
+%>
+<div class="alert alert-danger">
+    <strong>Error:</strong> No se encontró un usuario logueado.
+</div>
+<%
+    }
+%>
+
 
     <div class="row">
         <div class="col-6">

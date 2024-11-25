@@ -43,17 +43,20 @@
             <div class="mb-3">
                 <label for="tipoUsuario" class="form-label">Tipo de Usuario</label>
                 <select id="tipoUsuario" name="tipoUsuario" class="form-select" required>
-                    <option value="cliente">Cliente</option>
+                    <option value="empleado">Empleado</option>
                 </select>
             </div>
-            <div class="mb-3">
-                <label for="dniCliente" class="form-label">DNI</label>
-                <input type="text" id="dniCliente" name="dniCliente" class="form-control" placeholder="Ingrese el DNI" required>
-            </div>
+         
+      	    <div class="mb-3">
+    			 <label for="legajoEmpleado" class="form-label">Legajo</label>
+    			 <input type="text" id="legajoEmpleado" name="legajoEmpleado" class="form-control" placeholder="Ingrese el legajo del empleado" required>
+		    </div>
+		    
             <div class="mb-3">
                 <label for="claveUsuario" class="form-label">Clave</label>
                 <input type="password" id="claveUsuario" name="claveUsuario" class="form-control" placeholder="Ingrese una clave segura" required>
             </div>
+            
             <div class="mb-3">
                 <label for="nombreUsuario" class="form-label">Nombre</label>
                 <input type="text" id="nombreUsuario" name="nombreUsuario" class="form-control" placeholder="Ingrese el nombre" required>
@@ -62,10 +65,7 @@
                 <label for="apellidoUsuario" class="form-label">Apellido</label>
                 <input type="text" id="apellidoUsuario" name="apellidoUsuario" class="form-control" placeholder="Ingrese el apellido" required>
             </div>
-            
-            <div class="mb-3">
-                <input type="hidden" id="saldoInicial" name="saldoInicial" value="0.0">
-            </div>
+         
             <button type="submit" class="btn btn-primary">Registrar</button>
         </form>
         <%

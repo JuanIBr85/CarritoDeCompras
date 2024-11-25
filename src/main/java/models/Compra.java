@@ -48,6 +48,8 @@ public class Compra {
         return new ArrayList<>(historialCompras);
     }
     
+    
+    // https://www.geeksforgeeks.org/stringbuilder-tostring-method-in-java-with-examples/
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

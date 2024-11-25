@@ -76,7 +76,6 @@ public class AgregarCarritoController extends HttpServlet {
         }
 
         session.setAttribute("carrito", carrito);
-
         response.sendRedirect("productos.jsp");
     }
 }
