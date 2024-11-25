@@ -34,71 +34,24 @@ public class LoginController extends HttpServlet {
         String claveUsuario = request.getParameter("claveUsuario");
 
         System.out.println("Tipo de Usuario: " + tipoUsuario);
-        System.out.println("Numero Usuario: " + nroUsuario);
+        System.out.println("DNI/LEGAJO: " + nroUsuario);
         System.out.println("Clave del Usuario: " + claveUsuario);
 
         try {
-            if ("cliente".equals(tipoUsuario)) {
-                System.out.println("Buscando cliente con DNI: " + nroUsuario);
-                Cliente cliente = gestorCuentaUsuario.buscarUsuarioPorDni(nroUsuario);
+            switch (tipoUsuario) {
+                case "cliente":
+                    postLoginCliente(request, response, nroUsuario, claveUsuario);
+                    break;
 
-                if (cliente == null) {
-                    System.out.println("Cliente no encontrado.");
-                    request.setAttribute("mensaje", "Cliente no encontrado.");
+                case "empleado":
+                    postLoginEmpleado(request, response, nroUsuario, claveUsuario);
+                    break;
+
+                default:
+                    System.out.println("Tipo de usuario no válido.");
+                    request.setAttribute("mensaje", "Tipo de usuario no válido.");
                     request.getRequestDispatcher("login.jsp").forward(request, response);
-                    return;
-                }
-
-                System.out.println("Verificando clave del cliente...");
-                if (cliente.getClaveUsuario().equals(claveUsuario)) {
-                    System.out.println("Clave correcta, buscando cuenta cliente...");
-                    BilleteraCliente cuentaCliente = gestorCuentaCliente.buscarCuenta(cliente.getDniCliente());
-
-                    if (cuentaCliente == null) {
-                        System.out.println("Cuenta no encontrada para el cliente.");
-                        request.setAttribute("mensaje", "No se encontró una cuenta asociada al cliente.");
-                        request.getRequestDispatcher("login.jsp").forward(request, response);
-                        return;
-                    }
-
-                    System.out.println("Cuenta cliente encontrada. Redirigiendo al dashboard.");
-                    HttpSession session = request.getSession();
-                    session.setAttribute("usuarioLogueado", cliente);
-                    session.setAttribute("cuentaCliente", cuentaCliente);
-
-                    response.sendRedirect("dashboard.jsp");
-                } else {
-                    System.out.println("Clave incorrecta.");
-                    request.setAttribute("error", "Clave incorrecta.");
-                    request.getRequestDispatcher("login.jsp").forward(request, response);
-                }
-            } else if ("empleado".equals(tipoUsuario)) {
-                System.out.println("Buscando empleado con legajo: " + nroUsuario);
-                Empleado empleado = gestorCuentaUsuario.buscarEmpleadoPorLegajo(nroUsuario);
-
-                if (empleado == null) {
-                    System.out.println("Empleado no encontrado.");
-                    request.setAttribute("mensaje", "Empleado no encontrado.");
-                    request.getRequestDispatcher("login.jsp").forward(request, response);
-                    return;
-                }
-
-                System.out.println("Verificando clave del empleado...");
-                if (empleado.getClaveUsuario().equals(claveUsuario)) {
-                    System.out.println("Clave correcta, redirigiendo a acciones de productos.");
-                    HttpSession session = request.getSession();
-                    session.setAttribute("usuarioLogueado", empleado);
-
-                    response.sendRedirect("AccionesProductos.jsp");
-                } else {
-                    System.out.println("Clave incorrecta.");
-                    request.setAttribute("mensaje", "Clave incorrecta.");
-                    request.getRequestDispatcher("login.jsp").forward(request, response);
-                }
-            } else {
-                System.out.println("Tipo de usuario no válido.");
-                request.setAttribute("mensaje", "Tipo de usuario no válido.");
-                request.getRequestDispatcher("login.jsp").forward(request, response);
+                    break;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -107,4 +60,66 @@ public class LoginController extends HttpServlet {
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
     }
+
+    private void postLoginCliente(HttpServletRequest request, HttpServletResponse response, String nroUsuario, String claveUsuario) throws ServletException, IOException {
+        System.out.println("Buscando cliente con DNI: " + nroUsuario);
+        Cliente cliente = gestorCuentaUsuario.buscarUsuarioPorDni(nroUsuario);
+
+        if (cliente == null) {
+            System.out.println("Cliente no encontrado.");
+            request.setAttribute("mensaje", "Cliente no encontrado.");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+            return;
+        }
+
+        System.out.println("Verificando clave del cliente...");
+        if (cliente.getClaveUsuario().equals(claveUsuario)) {
+            System.out.println("Clave correcta, buscando cuenta cliente...");
+            BilleteraCliente cuentaCliente = gestorCuentaCliente.buscarCuenta(cliente.getDniCliente());
+
+            if (cuentaCliente == null) {
+                System.out.println("Cuenta no encontrada para el cliente.");
+                request.setAttribute("mensaje", "No se encontró una cuenta asociada al cliente.");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+                return;
+            }
+
+            System.out.println("Cuenta cliente encontrada. Redirigiendo al dashboard.");
+            HttpSession session = request.getSession();
+            session.setAttribute("usuarioLogueado", cliente);
+            session.setAttribute("cuentaCliente", cuentaCliente);
+
+            response.sendRedirect("dashboard.jsp");
+        } else {
+            System.out.println("Clave incorrecta.");
+            request.setAttribute("error", "Clave incorrecta.");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        }
+    }
+
+    private void postLoginEmpleado(HttpServletRequest request, HttpServletResponse response, String nroUsuario, String claveUsuario) throws ServletException, IOException {
+        System.out.println("Buscando empleado con legajo: " + nroUsuario);
+        Empleado empleado = gestorCuentaUsuario.buscarEmpleadoPorLegajo(nroUsuario);
+
+        if (empleado == null) {
+            System.out.println("Empleado no encontrado.");
+            request.setAttribute("mensaje", "Empleado no encontrado.");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+            return;
+        }
+
+        System.out.println("Verificando clave del empleado...");
+        if (empleado.getClaveUsuario().equals(claveUsuario)) {
+            System.out.println("Clave correcta, redirigiendo a acciones de productos.");
+            HttpSession session = request.getSession();
+            session.setAttribute("usuarioLogueado", empleado);
+
+            response.sendRedirect("AccionesProductos.jsp");
+        } else {
+            System.out.println("Clave incorrecta.");
+            request.setAttribute("mensaje", "Clave incorrecta.");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        }
+    }
+
 }

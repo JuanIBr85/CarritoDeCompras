@@ -91,7 +91,6 @@ public class BilleteraController extends HttpServlet {
     }
 
     private void postPago(HttpServletRequest request, HttpServletResponse response, String nroCuenta) throws IOException, ServletException {
-        System.out.println("Iniciando postPago...");
 
         double monto = Double.parseDouble(request.getParameter("monto"));
         String clienteDni = request.getParameter("clienteDni");
