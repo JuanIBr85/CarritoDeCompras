@@ -9,17 +9,17 @@ public class Compra {
     private double total;
     private static List<Compra> historialCompras = new ArrayList<>();
 
-    private int id;
+    private int idUsuario;
     
-    public Compra(int id, String clienteDni, List<Producto> productos, double total) {
-    	this.id = id;
+    public Compra(int idUsuario, String clienteDni, List<Producto> productos, double total) {
+    	this.idUsuario = idUsuario;
     	this.clienteDni = clienteDni;
         this.productos = productos;
         this.total = total;
     }
 
     public int getId() {
-    	return id;
+    	return idUsuario;
     }
     
     public String getClienteDni() {
