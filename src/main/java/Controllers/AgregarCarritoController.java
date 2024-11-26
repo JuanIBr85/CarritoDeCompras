@@ -28,10 +28,12 @@ public class AgregarCarritoController extends HttpServlet {
         String cantidadProd = request.getParameter("Cantidad");
         String stockProd = request.getParameter("StockProducto");
         
-        if (idProd==null||codProd==null||nombreProd==null||precioProd==null||cantidadProd==null||stockProd==null) {
-			
-        	response.sendError(404,"Todos los campos son obligatorios");
-		}
+        if (idProd == null || codProd == null || nombreProd == null || precioProd == null || cantidadProd == null || stockProd == null ||  idProd.isEmpty() || codProd.isEmpty() || nombreProd.isEmpty() ||               
+                precioProd.isEmpty() || cantidadProd.isEmpty() || stockProd.isEmpty()) {
+                
+                response.sendError(404, "Todos los campos deben ser completados.");
+                return;
+            }
         
         double precioProducto = Double.parseDouble(precioProd);
         int stockProducto = Integer.parseInt(stockProd);
@@ -39,8 +41,9 @@ public class AgregarCarritoController extends HttpServlet {
         int idProducto = Integer.parseInt(idProd);
 
         
-        if(precioProducto <=0||cantidad<=0) {
-        	response.sendError(404,"No se admiten valores negativos");
+        if (precioProducto <= 0 || cantidad <= 0 || stockProducto <= 0) {
+            response.sendError(404, "Solo se admiten valores positivos.");
+            return;
         }
         
         Producto productoCarrito = new Producto();
