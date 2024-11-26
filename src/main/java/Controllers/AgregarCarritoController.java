@@ -26,9 +26,10 @@ public class AgregarCarritoController extends HttpServlet {
         String nombreProd = request.getParameter("NombreProducto");
         String precioProd = request.getParameter("PrecioProducto");
         String cantidadProd = request.getParameter("Cantidad");
-
-        double precioProducto = Double.parseDouble(precioProd);
         String stockProd = request.getParameter("StockProducto");
+        
+        
+        double precioProducto = Double.parseDouble(precioProd);
         int stockProducto = Integer.parseInt(stockProd);
         int cantidad = Integer.parseInt(cantidadProd);
         int idProducto = Integer.parseInt(idProd);

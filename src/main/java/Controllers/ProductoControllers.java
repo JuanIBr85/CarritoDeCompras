@@ -93,6 +93,17 @@ public class ProductoControllers extends HttpServlet {
 		String stockProd = request.getParameter("StockProducto");
 		int stockProducto = Integer.parseInt(stockProd);
 		
+		
+        if (precioProducto <= 0) {
+        	response.sendError(404, "Precio no valido.");
+            return;
+        }
+
+        if (stockProducto < 0) {
+        	response.sendError(404, "Stock inicial negativo.");
+            return;
+        }
+		
 		Producto nuevoProducto = new Producto();
 		
 		nuevoProducto.setCodProducto(codProd);
@@ -154,14 +165,14 @@ public class ProductoControllers extends HttpServlet {
 	        if (precioProd != null && !precioProd.isEmpty()) {
 		        System.out.println("Nuevo Precio del Producto: " + precioProd);
 
-	            try {
-	                productoModificado.setPrecio(Double.parseDouble(precioProd));
-	            } catch (NumberFormatException e) {
-	                response.sendRedirect("AccionesProductos.jsp?mensaje=El precio debe ser un número válido.");
-	                return;
-	            }
+	            		Double precioProducto = Double.parseDouble(precioProd);
+	                    if (precioProducto <= 0) {
+	                    	response.sendError(404, "Precio no valido.");
+	                        return;
+	                   }
+	        
+	                productoModificado.setPrecio(precioProducto);
 	        }
-
 	        if (stockProd != null && !stockProd.isEmpty()) {
 		        System.out.println("Nuevo Stock del Producto: " + stockProd);
 
