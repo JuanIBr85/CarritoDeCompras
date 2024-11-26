@@ -28,12 +28,21 @@ public class AgregarCarritoController extends HttpServlet {
         String cantidadProd = request.getParameter("Cantidad");
         String stockProd = request.getParameter("StockProducto");
         
+        if (idProd==null||codProd==null||nombreProd==null||precioProd==null||cantidadProd==null||stockProd==null) {
+			
+        	response.sendError(404,"Todos los campos son obligatorios");
+		}
         
         double precioProducto = Double.parseDouble(precioProd);
         int stockProducto = Integer.parseInt(stockProd);
         int cantidad = Integer.parseInt(cantidadProd);
         int idProducto = Integer.parseInt(idProd);
 
+        
+        if(precioProducto <=0||cantidad<=0) {
+        	response.sendError(404,"No se admiten valores negativos");
+        }
+        
         Producto productoCarrito = new Producto();
         
         productoCarrito.setIdProducto(idProducto);
