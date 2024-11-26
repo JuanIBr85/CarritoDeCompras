@@ -1,3 +1,3 @@
-#Integrantes:
-- Acosta, Cristian Darío.
-- Bauer, Juan Ignacio. 
+# Integrantes
+- Acosta, Cristian Darío
+- Bauer, Juan Ignacio
