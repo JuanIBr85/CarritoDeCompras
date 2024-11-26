@@ -16,7 +16,7 @@ public class GestorPago {
         this.gestorProducto = GestorProducto.getInstance();
     }
 
-    public boolean procesarPago(String nroCuenta, double monto, String clienteDni, HttpSession session) {
+    public boolean procesarPago(String idUsuario, String nroCuenta, double monto, String clienteDni, HttpSession session) {
         double saldoActual = gestorBilleteraCliente.buscarCuenta(nroCuenta).getSaldoCuenta();
         System.out.println("Saldo actual: " + saldoActual);
         System.out.println("Monto a pagar: " + monto);
@@ -45,7 +45,9 @@ public class GestorPago {
                 }
             }
 
-            Compra nuevaCompra = new Compra(clienteDni, carrito, monto);
+            int idUsuarioInt = Integer.parseInt(idUsuario);
+
+            Compra nuevaCompra = new Compra(idUsuarioInt, clienteDni, carrito, monto);
             Compra.agregarCompra(nuevaCompra);
             System.out.println("Nueva compra agregada: " + nuevaCompra);
 

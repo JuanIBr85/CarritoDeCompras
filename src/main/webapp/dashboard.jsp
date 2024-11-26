@@ -90,43 +90,52 @@
             }
         %>
 
-        <h3 class="mt-4">Historial de Compras</h3>
-        <%
-            List<models.Compra> historialCompras = (List<models.Compra>) session.getAttribute("historialCompras");
+       <h3 class="mt-4">Historial de Compras</h3>
+<%
+    List<models.Compra> historialCompras = (List<models.Compra>) session.getAttribute("historialCompras");
 
-            if (historialCompras != null && !historialCompras.isEmpty()) {
-        %>
-        <div class="row">
-            <% for (models.Compra compra : historialCompras) { %>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        Compra de Cliente DNI: <%= compra.getClienteDni() %>
-                    </div>
-                    <div class="card-body">
-                        <p><strong>Total:</strong> $<%= compra.getTotal() %></p>
-                        <p><strong>Productos:</strong></p>
-                        <ul class="list-group">
-                            <% for (models.Producto producto : compra.getProductos()) { %>
-                            <li class="list-group-item">
-        						ID: <%= producto.getIdProducto() %> - Nombre: <%= producto.getNombre() %> - Precio: $<%= producto.getPrecio() %> - Cantidad: <%= producto.getCantidad() %>
-                            </li>
-                            <% } %>
-                        </ul>
-                    </div>
-                </div>
+    if (historialCompras != null && !historialCompras.isEmpty() && usuarioLogueado != null) {
+%>
+<div class="row">
+    <% 
+        for (models.Compra compra : historialCompras) { 
+        	 System.out.println("Compra ID: " + compra.getId());
+             System.out.println("Usuario Logueado ID: " + usuarioLogueado.getIdUsuario());
+             if (compra.getId() == usuarioLogueado.getIdUsuario()) {
+    %>
+    <div class="col-md-6">
+        <div class="card mb-3">
+            <div class="card-header">
+                Compra de Cliente DNI: <%= compra.getClienteDni() %>
             </div>
-            <% } %>
+            <div class="card-body">
+                <p><strong>Total:</strong> $<%= compra.getTotal() %></p>
+                <p><strong>Productos:</strong></p>
+                <ul class="list-group">
+                    <% for (models.Producto producto : compra.getProductos()) { %>
+                    <li class="list-group-item">
+                        ID: <%= producto.getIdProducto() %> - Nombre: <%= producto.getNombre() %> - Precio: $<%= producto.getPrecio() %> - Cantidad: <%= producto.getCantidad() %>
+                    </li>
+                    <% } %>
+                </ul>
+            </div>
         </div>
-        <%
-            } else {
-        %>
-        <div class="alert alert-warning">
-            No hay compras registradas.
-        </div>
-        <%
-            }
-        %>
+    </div>
+    <% 
+            } 
+        } 
+    %>
+</div>
+<%
+    } else {
+%>
+<div class="alert alert-warning">
+    No hay compras registradas.
+</div>
+<%
+    }
+%>
+
 
 <div class="message">
     <%

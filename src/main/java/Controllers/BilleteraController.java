@@ -109,12 +109,15 @@ public class BilleteraController extends HttpServlet {
 
         double monto = Double.parseDouble(request.getParameter("monto"));
         String clienteDni = request.getParameter("clienteDni");
+        String id = request.getParameter("id");
+
         System.out.println("Monto: " + monto);
         System.out.println("Cliente DNI: " + clienteDni);
+        System.out.println("Cliente id: " + id);
 
         GestorPago gestorPago = new GestorPago(gestorBilleteraCliente);
 
-        boolean pagoExitoso = gestorPago.procesarPago(nroCuenta, monto, clienteDni, request.getSession());
+        boolean pagoExitoso = gestorPago.procesarPago(id, nroCuenta, monto, clienteDni, request.getSession());
 
         if (pagoExitoso) {
             double saldoActual = gestorPago.obtenerSaldoActual(nroCuenta);

@@ -9,13 +9,19 @@ public class Compra {
     private double total;
     private static List<Compra> historialCompras = new ArrayList<>();
 
+    private int id;
     
-    public Compra(String clienteDni, List<Producto> productos, double total) {
-        this.clienteDni = clienteDni;
+    public Compra(int id, String clienteDni, List<Producto> productos, double total) {
+    	this.id = id;
+    	this.clienteDni = clienteDni;
         this.productos = productos;
         this.total = total;
     }
 
+    public int getId() {
+    	return id;
+    }
+    
     public String getClienteDni() {
         return clienteDni;
     }
