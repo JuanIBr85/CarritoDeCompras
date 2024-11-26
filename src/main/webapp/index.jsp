@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col-12 text-center">
             <h1 class="display-4 text-primary">
-                <i class="bi bi-windows"></i> Microsoft Store
+                <i class="bi bi-cart4"></i> Chango Store
             </h1>
             <p class="lead text-secondary">Explora nuestros productos.</p>
             

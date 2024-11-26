@@ -72,15 +72,29 @@ public class BilleteraController extends HttpServlet {
     }
 
     private void postDeposito(HttpServletRequest request, HttpServletResponse response, String nroCuenta) throws IOException {
-        double monto = Double.parseDouble(request.getParameter("monto"));  
-        gestorBilleteraCliente.sumaDineroEnCuenta(nroCuenta, monto);
 
-        response.sendRedirect("BilleteraCliente.jsp?saldo=" + gestorBilleteraCliente.buscarCuenta(nroCuenta).getSaldoCuenta());
+    		double monto = Double.parseDouble(request.getParameter("monto")); 
+    		
+    		if (monto<=0) {
+    			System.out.println("Intento de deposito de monto negativo");
+                response.sendError(404, "No se adminten montos negativos.");
+                return;
+    		}
+        	gestorBilleteraCliente.sumaDineroEnCuenta(nroCuenta, monto);	
+        	response.sendRedirect("BilleteraCliente.jsp?saldo=" + gestorBilleteraCliente.buscarCuenta(nroCuenta).getSaldoCuenta());
+        	System.out.println("Deposito realizado con exito $" + monto + " cuenta: " + nroCuenta);	
     }
 
     private void postTransferencia(HttpServletRequest request, HttpServletResponse response, String nroCuenta) throws IOException {
         String nroCuentaDestino = request.getParameter("clienteDestino");
         double monto = Double.parseDouble(request.getParameter("monto"));
+        
+		if (monto<=0) {
+			System.out.println("Intento de tranferencia de monto negativo");
+            response.sendError(404, "No se adminten montos negativos.");
+            return;
+		}
+        
 
         String mensaje = gestorBilleteraCliente.transferirDinero(nroCuentaDestino, nroCuenta, monto);
 
@@ -88,7 +102,8 @@ public class BilleteraController extends HttpServlet {
         session.setAttribute("mensaje", mensaje);
 
         response.sendRedirect("BilleteraCliente.jsp?saldo=" + gestorBilleteraCliente.buscarCuenta(nroCuenta).getSaldoCuenta());
-    }
+        System.out.println("Se realizo una tranferencia de $ " + monto +  " desde la cuenta origen: " + nroCuenta + " hacia la cuenta destino: " + nroCuentaDestino);
+    }	
 
     private void postPago(HttpServletRequest request, HttpServletResponse response, String nroCuenta) throws IOException, ServletException {
 
