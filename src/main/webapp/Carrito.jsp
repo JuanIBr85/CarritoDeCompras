@@ -114,8 +114,8 @@
                     <form action="BilleteraController" method="post">
                         <h3>Realizar Pago</h3>
                         <input type="hidden" name="accion" value="pago">
-                        <input type="text" name="clienteDni" value="<%= clienteLogueado.getDniCliente() %>" readonly>
-                        <input type="text" name="id" value="<%= clienteLogueado.getIdUsuario() %>" readonly>
+                        <input type="text" name="clienteDni" hidden value="<%= clienteLogueado.getDniCliente() %>" readonly>
+                        <input type="text" name="id" hidden value="<%= clienteLogueado.getIdUsuario() %>" readonly>
                        
                         <input type="number" name="monto" value="<%= total %>" readonly>
                         <button type="submit" class="btn btn-custom">Realizar Pago</button>
