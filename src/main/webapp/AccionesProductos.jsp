@@ -246,44 +246,68 @@
     </div>
 <% } %>
 
-<h3 class="mt-4">Historial de Compras</h3>
-        <%
-            List<models.Compra> historialCompras = (List<models.Compra>) session.getAttribute("historialCompras");
+<h3 class="mt-4">Historial de Ventas</h3>
+<%
+    List<models.Compra> historialCompras = (List<models.Compra>) session.getAttribute("historialCompras");
 
-            if (historialCompras != null && !historialCompras.isEmpty()) {
-        %>
-        <div class="row">
-            <% for (models.Compra compra : historialCompras) { %>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        Compra de Cliente DNI: <%= compra.getClienteDni() %>
-                    </div>
-                    <div class="card-body">
-                        <p><strong>Total:</strong> $<%= compra.getTotal() %></p>
-                        <p><strong>Productos:</strong></p>
-                        <ul class="list-group">
-                            <% for (models.Producto producto : compra.getProductos()) { %>
-                            <li class="list-group-item">
-                                ID: <%= producto.getIdProducto() %> - Nombre: <%= producto.getNombre() %> - Precio: $<%= producto.getPrecio() %> - Cantidad: <%= producto.getCantidad() %>
-                            </li>
-                            <% } %>
-                        </ul>
-                    </div>
+    if (historialCompras != null && !historialCompras.isEmpty()) {
+%>
+<div class="row">
+    <% for (models.Compra compra : historialCompras) { %>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+             ID Compra: <%= compra.getidCompra() %>  | DNI Cliente: <%= compra.getClienteDni() %>
+            </div>
+            <div class="card-body">
+                <p><strong>Total:</strong> $<%= compra.getTotal() %></p>
+                <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#compraModal<%= compra.getidCompra() %>">
+                    Ver detalles
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="compraModal<%= compra.getidCompra() %>" tabindex="-1" aria-labelledby="compraModalLabel<%= compra.getidCompra() %>" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="compraModalLabel<%= compra.getidCompra() %>">Detalles de la Compra</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6><strong>Cliente DNI:</strong> <%= compra.getClienteDni() %></h6>
+                    <h6><strong>ID Compra:</strong> <%= compra.getidCompra() %></h6>
+        
+                    <h6><strong>Total:</strong> $<%= compra.getTotal() %></h6>
+                    <p><strong>Productos:</strong></p>
+                    <ul class="list-group">
+                        <% for (models.Producto producto : compra.getProductos()) { %>
+                        <li class="list-group-item">
+                            ID: <%= producto.getIdProducto() %> - Nombre: <%= producto.getNombre() %> - Precio: $<%= producto.getPrecio() %> - Cantidad: <%= producto.getCantidad() %>
+                        </li>
+                        <% } %>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </div>
-            <% } %>
         </div>
-        <%
-            } else {
-        %>
-        <div class="alert alert-warning">
-            No hay compras registradas.
-        </div>
-        <%
-            }
-        %>
-        
+    </div>
+    <% } %>
+</div>
+<%
+    } else {
+%>
+<div class="alert alert-warning">
+    No hay compras registradas.
+</div>
+<%
+    }
+%>
+
+
 </div>
 
 <div class="d-flex justify-content-center m-4 gap-2">
@@ -291,6 +315,7 @@
 </div>
 
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

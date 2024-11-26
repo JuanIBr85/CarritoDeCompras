@@ -4,14 +4,17 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Compra {
+    private static int contadorIdCompra = 1; 
     private String clienteDni;
     private List<Producto> productos;
     private double total;
     private static List<Compra> historialCompras = new ArrayList<>();
 
     private int idUsuario;
+    private int idCompra;
     
-    public Compra(int idUsuario, String clienteDni, List<Producto> productos, double total) {
+    public Compra (int idUsuario, String clienteDni, List<Producto> productos, double total) {
+    	this.idCompra = contadorIdCompra++;
     	this.idUsuario = idUsuario;
     	this.clienteDni = clienteDni;
         this.productos = productos;
@@ -22,6 +25,9 @@ public class Compra {
     	return idUsuario;
     }
     
+    public int getidCompra() {
+    	return idCompra;
+    }
     public String getClienteDni() {
         return clienteDni;
     }

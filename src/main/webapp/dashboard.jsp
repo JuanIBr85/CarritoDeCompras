@@ -90,7 +90,7 @@
             }
         %>
 
-       <h3 class="mt-4">Historial de Compras</h3>
+<h3 class="mt-4">Historial de Compras</h3>
 <%
     List<models.Compra> historialCompras = (List<models.Compra>) session.getAttribute("historialCompras");
 
@@ -99,25 +99,47 @@
 <div class="row">
     <% 
         for (models.Compra compra : historialCompras) { 
-        	 System.out.println("Compra ID: " + compra.getId());
-             System.out.println("Usuario Logueado ID: " + usuarioLogueado.getIdUsuario());
-             if (compra.getId() == usuarioLogueado.getIdUsuario()) {
+            System.out.println("Compra ID: " + compra.getId());
+            System.out.println("Usuario Logueado ID: " + usuarioLogueado.getIdUsuario());
+            if (compra.getId() == usuarioLogueado.getIdUsuario()) {
     %>
     <div class="col-md-6">
         <div class="card mb-3">
             <div class="card-header">
-                Compra de Cliente DNI: <%= compra.getClienteDni() %>
+               <!-- Compra de Cliente DNI: <%= compra.getClienteDni() %> |-->
+                ID Compra: <%= compra.getidCompra() %>
             </div>
             <div class="card-body">
                 <p><strong>Total:</strong> $<%= compra.getTotal() %></p>
-                <p><strong>Productos:</strong></p>
-                <ul class="list-group">
-                    <% for (models.Producto producto : compra.getProductos()) { %>
-                    <li class="list-group-item">
-                        ID: <%= producto.getIdProducto() %> - Nombre: <%= producto.getNombre() %> - Precio: $<%= producto.getPrecio() %> - Cantidad: <%= producto.getCantidad() %>
-                    </li>
-                    <% } %>
-                </ul>
+                <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#compraModal<%= compra.getidCompra() %>">
+                    Ver detalles
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="compraModal<%= compra.getidCompra() %>" tabindex="-1" aria-labelledby="compraModalLabel<%= compra.getidCompra() %>" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="compraModalLabel<%= compra.getId() %>">Detalles de la Compra</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6><strong>Cliente DNI:</strong> <%= compra.getClienteDni() %></h6>
+                    <h6><strong>Total:</strong> $<%= compra.getTotal() %></h6>
+                    <p><strong>Productos:</strong></p>
+                    <ul class="list-group">
+                        <% for (models.Producto producto : compra.getProductos()) { %>
+                        <li class="list-group-item">
+                            ID: <%= producto.getIdProducto() %> - Nombre: <%= producto.getNombre() %> - Precio: $<%= producto.getPrecio() %> - Cantidad: <%= producto.getCantidad() %>
+                        </li>
+                        <% } %>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                </div>
             </div>
         </div>
     </div>
@@ -135,6 +157,7 @@
 <%
     }
 %>
+
 
 
 <div class="message">
@@ -155,12 +178,13 @@
     %>
 </div>
 
-		<div class="d-flex justify-content-center mt-4 gap-2">
+		<div class="d-flex justify-content-center my-4 gap-2">
    			 <a href="BilleteraCliente.jsp" class="btn btn-primary">Ir a Billetera</a>
    			<a href="productos.jsp" class="btn btn-primary">Ver Productos</a>
     			<a href="logout" class="btn logout-btn">Cerrar sesión</a>
 		</div>
     </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
